@@ -3,3 +3,14 @@
 !LICENSE
 !.*
 !*.json
+
+!public
+!public/**/*
+
+!src
+!src/**/*
+src/**/*.js
+
+!tests
+!tests/**/*
+tests/**/*.js
