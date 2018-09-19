@@ -1,7 +1,8 @@
 {
   "defaultSeverity": "warning",
   "extends": [
-    "tslint:recommended"
+    "tslint:recommended",
+    "tslint-config-prettier"
   ],
   "linterOptions": {
     "exclude": [
@@ -9,5 +10,23 @@
     ]
   },
   "rules": {
+    "arrow-parens": false,
+    "object-literal-sort-keys": false,
+    "interface-name": {
+      "options": "never-prefix"
+    },
+    "max-classes-per-file": false,
+    "no-any": true,
+    "no-conditional-assignment": false,
+    "no-console": false,
+    "no-switch-case-fall-through": true,
+    "object-literal-key-quotes": {
+      "options": "as-needed"
+    },
+    "only-arrow-functions": true,
+    "quotemark": {
+      "options": ["single", "avoid-escape", "avoid-template"]
+    },
+    "trailing-comma": false
   }
 }
