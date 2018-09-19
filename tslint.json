@@ -23,10 +23,6 @@
     "object-literal-key-quotes": {
       "options": "as-needed"
     },
-    "only-arrow-functions": true,
-    "quotemark": {
-      "options": ["single", "avoid-escape", "avoid-template"]
-    },
-    "trailing-comma": false
+    "only-arrow-functions": true
   }
 }
