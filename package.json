@@ -1,0 +1,35 @@
+{
+  "name": "online-checkers-platform",
+  "version": "0.1.0",
+  "homepage": "https://github.com/spencerturkel/online-checkers-platform",
+  "contributors": [
+    {
+      "name": "Spencer Turkel",
+      "email": "sturkel@mail.usf.edu"
+    },
+    {
+      "name": "Jayesh Patel",
+      "email": "jaypatel2397@gmail.com"
+    },
+    {
+      "name": "Eduardo Nodarse",
+      "email": "eduardn@mail.usf.edu"
+    }
+  ],
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "github:spencerturkel/online-checkers-platform"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.3"
+  }
+}
