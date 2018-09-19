@@ -1,8 +1,12 @@
 **/*
 
-!LICENSE
-!.*
-!*.json
+!*
+dist
+node_modules
+.idea/dictionaries
+.idea/tasks.xml
+.idea/workspace.xml
+.idea/usage.statistics.xml
 
 !public
 !public/**/*
