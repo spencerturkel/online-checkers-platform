@@ -1,14 +1,17 @@
 language: node_js
 node_js: 8
 before_script:
-  - npm run lint
-  - npm run test:unit
+- npm run lint
+- npm run test:unit
 script: npm run build
 deploy:
   local-dir: dist
   provider: pages
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN
+  github-token: "$GITHUB_TOKEN"
   keep-history: true
   on:
     branch: master
+notifications:
+  slack:
+    secure: EzLo8FS2QNHIEv6qJjmOvyYvcJMQWYQArdhboYdHL55/8QMdc35j4oOvKj/uQ3AvA4RVYjxaLRGNdEbsfkMgrUkCjm8MrTTdURMNWk97VBozSl9QldgbNMggEf6cVBlfup6uTcBZj+bAHv5CaJzgPPYzfeMUyULJcQTCSl3YMF0VS7BSZFBDhifNd1Ee3nOpJUyufh2qu+sBqOilhu2XpiCi4Ju+Ua/cnWbSrmdb6cCvETxtGxBNyupt6feGR0i+zI/b+d3BphvTYYECBdwwFGQk4d1rZeHi9dxm1Td2NZdUA6R9mcGoIdNrOaZCPdm8+it4pxDd6TUa3wSdnjTGVaBgo1i/13LlxwG9S6Iygp6Xqc+V9iSqIjUOCyPiTpjNfm0Gp93b1ApZ9mTdpOUkNty4+etVDCGnJO77pRxjp15U434nwSIeYfPWjpZOeF3HjED9aJLlkoEfdVW4Cddk2vULHgEQhUFlU2rPsP+a1l6tEPrIA5Ia+dqBSw1h9Mawx8iEBS03eLSKAMsOWXvBAv5AI7bc45kx9M0IWAoq+wkH3h3Wgjkxf5eckYOV8IV+QNku8kyUuppkdi66I1fPyoPQmh+/cECXXMDGaTyKOTu3oNodqUiC/rsHlI5ShtZje1H0OeD/QBW5tnNDoJoa33Tdj6wCaiVXJFwMyCZxjXo=
