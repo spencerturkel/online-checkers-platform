@@ -2,6 +2,7 @@
 
 !*
 dist
+ci
 node_modules
 .idea/dictionaries
 .idea/tasks.xml

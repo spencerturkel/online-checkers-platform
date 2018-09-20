@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --modern",
+    "develop": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "serve": "shx mkdir ci && (cd ci && shx ln -s ../dist online-checkers-platform); serve ci",
     "test:unit": "vue-cli-service test:unit",
-    "test:e2e:host": "testcafe firefox:headless tests",
-    "test:e2e:local": "concurrently -k \"npm run serve\" \"HOST=localhost:8080 npm run test:e2e:host\""
+    "test:e2e:develop": "HOST=localhost:8080 npm run util:e2e:firefox:headless",
+    "test:e2e:build": "HOST=localhost:5000/online-checkers-platform/ concurrently -s first -k npm:serve npm:util:e2e:firefox:headless",
+    "test:e2e:standalone": "concurrently -s first -k npm:develop npm:test:e2e:develop",
+    "util:e2e:firefox:headless": "testcafe firefox:headless tests"
   },
   "dependencies": {
     "vue": "^2.5.17",
@@ -22,6 +25,8 @@
     "concurrently": "^4.0.1",
     "lint-staged": "^7.2.2",
     "prettier": "^1.14.3",
+    "serve": "^10.0.1",
+    "shx": "^0.3.2",
     "testcafe": "^0.22.0",
     "ts-jest": "^23.0.0",
     "tslint": "^5.11.0",
