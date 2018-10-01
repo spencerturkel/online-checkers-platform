@@ -12,7 +12,7 @@ export default Vue.extend({
   mounted() {
     gapi.signin2.render(`google-signin-${this.uid}`, {
       onfailure: () => this.$emit('failure'),
-      onsuccess: () => this.$emit('success'),
+      onsuccess: (user: gapi.auth2.GoogleUser) => this.$emit('success'),
     });
   },
 });

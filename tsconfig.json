@@ -9,6 +9,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    "types": ["node", "jest", "gapi.auth2"],
     "baseUrl": ".",
     "lib": [
       "esnext",

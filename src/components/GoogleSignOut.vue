@@ -9,7 +9,7 @@ export default Vue.extend({
   methods: {
     async signOut() {
       try {
-        await (gapi.auth2.getAuthInstance() as gapi.auth2.GoogleAuth).signOut();
+        await gapi.auth2.getAuthInstance().signOut();
         console.log('signed out');
       } catch (e) {
         console.error('error signing out', e);
