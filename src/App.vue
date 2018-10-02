@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <google-sign-in @failure="signinFailure" @success="signinSuccess"></google-sign-in>
-    <google-sign-out></google-sign-out>
+    <sign-in></sign-in>
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
@@ -12,21 +11,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import GoogleSignIn from './components/GoogleSignIn.vue';
-import GoogleSignOut from './components/GoogleSignOut.vue';
+import SignIn from './components/account/SignIn.vue';
 
 export default Vue.extend({
   components: {
-    'google-sign-in': GoogleSignIn,
-    'google-sign-out': GoogleSignOut,
-  },
-  methods: {
-    signinFailure() {
-      console.log('signin failed');
-    },
-    signinSuccess() {
-      console.log('signin succeeded');
-    },
+    SignIn,
   },
 });
 </script>
