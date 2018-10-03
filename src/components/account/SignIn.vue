@@ -10,7 +10,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { listen } from './GoogleAuth';
 import GoogleSignIn from './GoogleSignIn.vue';
 import GoogleSignOut from './GoogleSignOut.vue';
 
@@ -30,11 +29,15 @@ export default Vue.extend({
   mounted() {
     gapi.load('auth2', () => {
       const auth = gapi.auth2.getAuthInstance();
-      auth.isSignedIn.listen(signedIn => {
+      auth.isSignedIn.listen(async signedIn => {
         if (!signedIn) {
           this.user = null;
           console.log('deleting auth');
-          fetch('http://localhost:5000/auth', { method: 'delete' });
+          try {
+            await this.$http.delete('/auth');
+          } catch (e) {
+            console.error('Error deleting auth', e);
+          }
         }
       });
       auth.currentUser.listen(user => {

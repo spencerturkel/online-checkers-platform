@@ -4,7 +4,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { renderSignInButton } from './GoogleAuth';
 
 let id = 0;
 
@@ -28,23 +27,11 @@ export default Vue.extend({
 
       console.log('google token', token);
 
-      const authResult = await fetch('http://localhost:5000/auth/google', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-
-      if (authResult.status !== 201) {
+      try {
+        await this.$http.post('/auth/google', { token });
+      } catch (e) {
         this.$emit('signInFailed');
-        console.error(
-          'Error authenticating with google',
-          authResult,
-          await authResult.text(),
-        );
+        console.error('Error authenticating with google', e);
       }
     },
   },
