@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "serve": "serve dist",
     "test:unit": "vue-cli-service test:unit",
+    "test:unit:watch": "vue-cli-service test:unit --watch",
     "test:e2e:develop": "HOST=localhost:8080 npm run util:e2e:firefox:headless",
     "test:e2e:build": "HOST=localhost:5000 concurrently -s first -k npm:serve npm:util:e2e:firefox:headless",
     "test:e2e:standalone": "concurrently -s first -k npm:develop npm:test:e2e:develop",
