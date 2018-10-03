@@ -7,9 +7,8 @@ import Vue from 'vue';
 
 export default Vue.extend({
   methods: {
-    async signOut() {
-      await gapi.auth2.getAuthInstance().signOut();
-      this.$emit('signOut');
+    signOut() {
+      gapi.auth2.getAuthInstance().signOut();
     },
   },
 });

@@ -11,6 +11,7 @@
       "options": "never-prefix"
     },
     "max-classes-per-file": false,
+    "member-access": false,
     "no-any": true,
     "no-conditional-assignment": false,
     "no-console": false,

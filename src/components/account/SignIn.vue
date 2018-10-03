@@ -1,15 +1,16 @@
 <template>
     <div>
-    <google-sign-in v-if="signedOut" @signIn="signIn"></google-sign-in>
+    <google-sign-in v-if="signedOut"></google-sign-in>
     <template v-else>
-        <div>Welcome, {{user.name}}!</div>
-        <google-sign-out @signOut="signOut"></google-sign-out>
+        <div>Welcome, {{user}}!</div>
+        <google-sign-out></google-sign-out>
     </template>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import { listen } from './GoogleAuth';
 import GoogleSignIn from './GoogleSignIn.vue';
 import GoogleSignOut from './GoogleSignOut.vue';
 
@@ -24,41 +25,25 @@ export default Vue.extend({
     },
   },
   data: () => ({
-    user: null as null | { name: string; token: string },
+    user: null as null | string,
   }),
-  methods: {
-    signOut() {
-      this.user = null;
-    },
-    async signIn(user: gapi.auth2.GoogleUser): Promise<void> {
-      const token = user.getAuthResponse().id_token;
-
-      console.log('token', token);
-
-      const authResult = await fetch('http://localhost:5000/auth/google', {
-        method: 'POST',
-        mode: 'cors',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
+  mounted() {
+    gapi.load('auth2', () => {
+      const auth = gapi.auth2.getAuthInstance();
+      auth.isSignedIn.listen(signedIn => {
+        if (!signedIn) {
+          this.user = null;
+          console.log('deleting auth');
+          fetch('http://localhost:5000/auth', { method: 'delete' });
+        }
       });
-
-      if (authResult.status === 201) {
-        this.user = {
-          name: user.getBasicProfile().getName(),
-          token,
-        };
-      } else {
-        // TODO: log out of google
-        console.error(
-          'Error authenticating with google',
-          authResult,
-          await authResult.text(),
-        );
-      }
-    },
+      auth.currentUser.listen(user => {
+        const profile = user.getBasicProfile();
+        if (profile) {
+          this.user = profile.getName();
+        }
+      });
+    });
   },
 });
 </script>
