@@ -24,14 +24,40 @@ export default Vue.extend({
     },
   },
   data: () => ({
-    user: null as null | { name: string },
+    user: null as null | { name: string; token: string },
   }),
   methods: {
     signOut() {
       this.user = null;
     },
-    signIn(user: gapi.auth2.GoogleUser): void {
-      this.user = { name: user.getBasicProfile().getName() };
+    async signIn(user: gapi.auth2.GoogleUser): Promise<void> {
+      const token = user.getAuthResponse().id_token;
+
+      console.log('token', token);
+
+      const authResult = await fetch('http://localhost:5000/auth/google', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      if (authResult.status === 201) {
+        this.user = {
+          name: user.getBasicProfile().getName(),
+          token,
+        };
+      } else {
+        // TODO: log out of google
+        console.error(
+          'Error authenticating with google',
+          authResult,
+          await authResult.text(),
+        );
+      }
     },
   },
 });

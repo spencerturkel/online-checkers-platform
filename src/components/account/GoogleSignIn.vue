@@ -15,10 +15,13 @@ export default Vue.extend({
     },
   },
   beforeMount() {
-    while (!gapi) {
-      // wait
-      // TODO move this to a router guard
+    console.group('Waiting for gapi...');
+
+    while (gapi == null) {
+      console.log('Waiting...');
     }
+
+    console.groupEnd();
   },
   mounted() {
     gapi.signin2.render(`google-signin-${this.uid}`, {
