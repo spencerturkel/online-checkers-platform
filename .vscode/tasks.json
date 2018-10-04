@@ -4,6 +4,7 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Watch Unit Tests",
       "type": "npm",
       "script": "watch:test:unit",
       "group": {
@@ -18,7 +19,32 @@
       "group": {
         "kind": "build",
         "isDefault": true
-      }
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "E2E Build",
+      "type": "npm",
+      "script": "test:e2e:build",
+      "problemMatcher": []
+    },
+    {
+      "label": "E2E Develop",
+      "type": "npm",
+      "script": "test:e2e:develop",
+      "problemMatcher": []
+    },
+    {
+      "label": "Serve",
+      "type": "npm",
+      "script": "serve",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build",
+      "type": "npm",
+      "script": "build",
+      "problemMatcher": []
     }
   ]
 }
