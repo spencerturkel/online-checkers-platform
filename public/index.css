@@ -8,8 +8,7 @@ body, html{
     height : 100%;
 
     /*Centers the image and does not allow it to repeat*/
-    background-position: center;
-    background-repear: no-repeat;
+    background: no-repeat center;
     background-size: cover;
 
     /*Centers the image along the horizontal*/
