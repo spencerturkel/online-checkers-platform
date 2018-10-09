@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <HelloWorld msg="Welcome to Checkers"/>
+    <img id = "StartScreen" src = "../assets/CheckersMainMenuGraphic.png" alt = "Start Screen">
   </div>
 </template>
 
@@ -16,3 +16,25 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+body,
+html {
+  height: 100%;
+}
+
+#StartScreen {
+  height: 100%;
+  width: 100%;
+
+  position: fixed;
+
+  left: 0px;
+  top: 0px;
+
+  z-index: -1;
+
+  background: no-repeat center;
+  background-size: cover;
+}
+</style>
