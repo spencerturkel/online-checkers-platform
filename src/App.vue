@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <sign-in></sign-in>
     <div id="nav">
       <router-link id="Start"  class = "Buttons" to="/">Home</router-link>
       <router-link id="Account" class = "Buttons" to="/about">About</router-link>
@@ -7,6 +8,17 @@
     <router-view/>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import SignIn from './components/account/SignIn.vue';
+
+export default Vue.extend({
+  components: {
+    SignIn,
+  },
+});
+</script>
 
 <style scoped>
 #app {
@@ -29,18 +41,16 @@
   color: #42b983;
 }
 
-.Buttons{
+.Buttons {
   position: absolute;
 }
 
-#Start{
-  top:20%;
+#Start {
+  top: 20%;
 }
 
-  #Account{
-    top:25%;
-    left: 50%;
-  }
-
-
+#Account {
+  top: 25%;
+  left: 50%;
+}
 </style>

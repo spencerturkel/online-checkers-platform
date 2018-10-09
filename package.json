@@ -2,21 +2,25 @@
   "name": "online-checkers-platform",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "develop": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "serve": "serve dist",
+    "serve": "serve dist -p 8000",
     "test:unit": "vue-cli-service test:unit",
+    "test:unit:watch": "vue-cli-service test:unit --watch",
     "test:e2e:develop": "HOST=localhost:8080 npm run util:e2e:firefox:headless",
-    "test:e2e:build": "HOST=localhost:5000 concurrently -s first -k npm:serve npm:util:e2e:firefox:headless",
+    "test:e2e:build": "HOST=localhost:8000 concurrently -s first -k npm:serve npm:util:e2e:firefox:headless",
     "test:e2e:standalone": "concurrently -s first -k npm:develop npm:test:e2e:develop",
     "util:e2e:firefox:headless": "testcafe firefox:headless tests"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "@types/gapi.auth2": "0.0.47",
     "@types/jest": "^23.1.4",
     "@vue/cli-plugin-typescript": "^3.0.1",
     "@vue/cli-plugin-unit-jest": "^3.0.1",

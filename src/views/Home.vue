@@ -18,22 +18,23 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  body, html{
-    height : 100%;
-  }
+body,
+html {
+  height: 100%;
+}
 
-  #StartScreen{
-    height: 100%;
-    width : 100%;
+#StartScreen {
+  height: 100%;
+  width: 100%;
 
-    position: fixed;
+  position: fixed;
 
-    left: 0px;
-    top: 0px;
+  left: 0px;
+  top: 0px;
 
-    z-index: -1;
+  z-index: -1;
 
-    background : no-repeat center;
-    background-size: cover;
-  }
+  background: no-repeat center;
+  background-size: cover;
+}
 </style>
