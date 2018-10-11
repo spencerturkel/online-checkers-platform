@@ -1,6 +1,6 @@
 <template>
     <div>
-    <google-sign-in v-if="signedOut"></google-sign-in>
+    <google-sign-in v-if="signedOut" @signedIn="onSignedIn"></google-sign-in>
     <template v-else>
         <div class="center">Welcome, {{user}}!</div>
         <google-sign-out></google-sign-out>
@@ -29,26 +29,33 @@ export default Vue.extend({
   mounted() {
     gapi.load('auth2', () => {
       const auth = gapi.auth2.getAuthInstance();
-      auth.isSignedIn.listen(async signedIn => {
+      auth.isSignedIn.listen(signedIn => {
         if (!signedIn) {
-          this.user = null;
-          console.log('deleting auth');
-          try {
-            await this.$http.delete('/auth');
-          } catch (e) {
-            console.error('Error deleting auth', e);
-          }
-          this.$emit('signedOut');
-        }
-      });
-      auth.currentUser.listen(user => {
-        const profile = user.getBasicProfile();
-        if (profile) {
-          this.user = profile.getName();
-          this.$emit('signedIn');
+          this.onSignedOut();
         }
       });
     });
+  },
+  methods: {
+    onSignedIn(user: gapi.auth2.GoogleUser) {
+      console.log('signed in');
+      const profile = user.getBasicProfile();
+      if (profile) {
+        this.user = profile.getName();
+        this.$emit('signedIn');
+      }
+    },
+    async onSignedOut() {
+      console.log('signed out');
+      this.user = null;
+      console.log('deleting auth');
+      try {
+        await this.$http.delete('/auth');
+      } catch (e) {
+        console.error('Error deleting auth', e);
+      }
+      this.$emit('signedOut');
+    },
   },
 });
 </script>

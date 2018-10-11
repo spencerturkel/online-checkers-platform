@@ -25,10 +25,9 @@ export default Vue.extend({
       this.$emit('signInStarted');
       const token = user.getAuthResponse().id_token;
 
-      console.log('google token', token);
-
       try {
         await this.$http.post('/auth/google', { token });
+        this.$emit('signedIn', user);
       } catch (e) {
         this.$emit('signInFailed');
         console.error('Error authenticating with google', e);
@@ -39,12 +38,12 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="css">
-  div{
+div {
   /*This harddcodes the button to the center of the screen at
    the top quarter of the screen*/
   position: absolute;
   width: 100%;
   top: 25%;
   left: 48%;
-  }
+}
 </style>

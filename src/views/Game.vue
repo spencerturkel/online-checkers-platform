@@ -20,9 +20,12 @@ export default Vue.extend({
   components: {
     HelloWorld,
   },
-  data: () => ({ digit: null, message: '' }),
+  data: () => ({ alive: true, digit: null, message: '' }),
+  beforeDestroy() {
+    this.alive = false;
+  },
   async mounted() {
-    while (true) {
+    while (this.alive) {
       const result = await this.$http.get('/game/waiting');
 
       if (result.status === 204) {

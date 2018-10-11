@@ -19,13 +19,16 @@ import HelloWorld from '@/components/HelloWorld.vue';
 import { delay } from '../util';
 
 export default Vue.extend({
-  // Imports waiting vue
   name: 'waiting',
   components: {
     HelloWorld,
   },
+  data: () => ({ alive: true }),
+  beforeDestroy() {
+    this.alive = false;
+  },
   async mounted() {
-    while (true) {
+    while (this.alive) {
       const result = await this.$http.get('/game/waiting');
 
       if (result.status === 200) {
