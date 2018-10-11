@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <sign-in></sign-in>
     <div id="nav">
-      <router-link id="Start"  class = "Buttons" to="/waiting">Start</router-link>
     </div>
     <router-view/>
   </div>
@@ -10,13 +8,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import SignIn from './components/account/SignIn.vue';
 
-export default Vue.extend({
-  components: {
-    SignIn,
-  },
-});
+export default Vue.extend({});
 </script>
 
 <style scoped>

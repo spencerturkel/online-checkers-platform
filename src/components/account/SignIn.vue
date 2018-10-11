@@ -38,12 +38,14 @@ export default Vue.extend({
           } catch (e) {
             console.error('Error deleting auth', e);
           }
+          this.$emit('signedOut');
         }
       });
       auth.currentUser.listen(user => {
         const profile = user.getBasicProfile();
         if (profile) {
           this.user = profile.getName();
+          this.$emit('signedIn');
         }
       });
     });
@@ -52,11 +54,11 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="css">
-  div.center{
-    position: absolute;
-    top: 25%;
-    width:100%;
-    text-align: center;
-  }
+div.center {
+  position: absolute;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+}
 </style>
 "

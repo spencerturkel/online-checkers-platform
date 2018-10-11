@@ -1,18 +1,32 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Checkers"/>
-    <img id = "StartScreen" src = "../assets/CheckersMainMenuGraphic.png" alt = "Start Screen">
+    <sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in>
+    <router-link v-if="ready" id="Start" class="Buttons" to="/waiting">Start</router-link>
+    <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Vue from 'vue';
+
+import SignIn from '@/components/account/SignIn.vue';
+import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 export default Vue.extend({
   name: 'home',
   components: {
     HelloWorld,
+    SignIn,
+  },
+  data: () => ({ ready: false }),
+  methods: {
+    signedIn(): void {
+      this.ready = true;
+    },
+    signedOut(): void {
+      this.ready = false;
+    },
   },
 });
 </script>
