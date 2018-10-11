@@ -32,7 +32,10 @@ export default Vue.extend({
       const result = await this.$http.get('/game/waiting');
 
       if (result.status === 200) {
-        this.$router.push('/game');
+        this.$router.push({
+          path: '/game',
+          query: { opponent: result.data.opponent },
+        });
         return;
       }
 

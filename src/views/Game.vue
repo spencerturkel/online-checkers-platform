@@ -1,5 +1,6 @@
 <template>
     <div>
+        <h1>Against {{$route.query.opponent}}</h1>
         <HelloWorld msg="Guess a Digit (0 - 9)"/>
 
         <form class="container" @submit="submit">
