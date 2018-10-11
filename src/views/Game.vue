@@ -52,6 +52,7 @@ export default Vue.extend({
 
       if (correct) {
         this.$router.push('/win');
+        this.$destroy();
       } else {
         this.message = 'Try again!';
         await delay(300);
