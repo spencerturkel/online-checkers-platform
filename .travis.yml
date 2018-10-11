@@ -1,13 +1,13 @@
 language: node_js
 node_js: 8
 before_script:
-- npm run test:unit
-script: npm run build && npm run test:e2e:build
+  - npm run test:unit
+script: npm run build
 deploy:
   local-dir: dist
   provider: pages
   skip-cleanup: true
-  github-token: "$GITHUB_TOKEN"
+  github-token: '$GITHUB_TOKEN'
   keep-history: true
   on:
     branch: master
