@@ -22,7 +22,7 @@ body,
 html {
   height: 100%;
 }
-
+/*Gets the main menu screen to take up the screen*/
 #StartScreen {
   height: 100%;
   width: 100%;

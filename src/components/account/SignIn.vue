@@ -2,7 +2,7 @@
     <div>
     <google-sign-in v-if="signedOut"></google-sign-in>
     <template v-else>
-        <div>Welcome, {{user}}!</div>
+        <div class="center">Welcome, {{user}}!</div>
         <google-sign-out></google-sign-out>
     </template>
     </div>
@@ -50,3 +50,13 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped lang="css">
+  div.center{
+    position: absolute;
+    top: 25%;
+    width:100%;
+    text-align: center;
+  }
+</style>
+"

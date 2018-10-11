@@ -38,5 +38,13 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
+<style scoped lang="css">
+  div{
+  /*This harddcodes the button to the center of the screen at
+   the top quarter of the screen*/
+  position: absolute;
+  width: 100%;
+  top: 25%;
+  left: 48%;
+  }
 </style>

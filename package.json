@@ -59,7 +59,6 @@
       "email": "eduardn@mail.usf.edu"
     }
   ],
-  "license": "MIT",
   "lint-staged": {
     "src/**/*.ts": [
       "vue-cli-service lint",

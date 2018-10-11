@@ -2,8 +2,7 @@
   <div id="app">
     <sign-in></sign-in>
     <div id="nav">
-      <router-link id="Start"  class = "Buttons" to="/">Home</router-link>
-      <router-link id="Account" class = "Buttons" to="/about">About</router-link>
+      <router-link id="Start"  class = "Buttons" to="/waiting">Start</router-link>
     </div>
     <router-view/>
   </div>
@@ -47,10 +46,7 @@ export default Vue.extend({
 
 #Start {
   top: 20%;
-}
-
-#Account {
-  top: 25%;
-  left: 50%;
+  text-align: center;
+  font-size: 1.6em; /*Increases the font size of the start button by x1.6*/
 }
 </style>
