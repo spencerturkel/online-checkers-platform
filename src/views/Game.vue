@@ -1,23 +1,59 @@
 <template>
     <div>
-        <HelloWorld msg="Guess a Letter"/>
-        <router-link id="Win" class="Link" to="/win">Win</router-link>
-        <router-link id="Lose" class="Link" to="/lose">Lose</router-link>
-    
-        <div class="container">
-            <input id = "Enter"v-model="message">
-        </div>
+        <HelloWorld msg="Guess a Digit (0 - 9)"/>
+
+        <form class="container" @submit="submit">
+            <input id="Enter" type="number" min="0" max="9" v-model="digit">
+        </form>
+        <p>{{message}}</p>
     </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Vue from 'vue';
+
+import HelloWorld from '@/components/HelloWorld.vue';
+import { delay } from '../util';
 
 export default Vue.extend({
   name: 'game-screen',
   components: {
     HelloWorld,
+  },
+  data: () => ({ digit: null, message: '' }),
+  async mounted() {
+    while (true) {
+      const result = await this.$http.get('/game/waiting');
+
+      if (result.status === 204) {
+        this.$router.push('/lose');
+        return;
+      }
+
+      await delay(200 /* milliseconds */);
+    }
+  },
+  methods: {
+    async submit() {
+      const result = await this.$http.post('/game/guess', {
+        digit: this.digit,
+      });
+
+      if (result.status === 404) {
+        this.$router.push('/lose');
+        return;
+      }
+
+      const { correct }: { correct: boolean } = result.data;
+
+      if (correct) {
+        this.$router.push('/win');
+      } else {
+        this.message = 'Try again!';
+        await delay(300);
+        this.message = '';
+      }
+    },
   },
 });
 </script>

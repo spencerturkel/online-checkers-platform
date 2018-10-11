@@ -13,16 +13,28 @@
 </template>
 
 <script lang="ts">
-// Apparently comments in ts also need a space
-// Imports the Hello World component for use
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Vue from 'vue';
+
+import HelloWorld from '@/components/HelloWorld.vue';
+import { delay } from '../util';
 
 export default Vue.extend({
   // Imports waiting vue
   name: 'waiting',
   components: {
     HelloWorld,
+  },
+  async mounted() {
+    while (true) {
+      const result = await this.$http.get('/game/waiting');
+
+      if (result.status === 200) {
+        this.$router.push('/game');
+        return;
+      }
+
+      await delay(200 /* milliseconds */);
+    }
   },
 });
 </script>

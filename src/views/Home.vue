@@ -2,7 +2,7 @@
   <div class="home">
     <HelloWorld msg="Welcome to Checkers"/>
     <sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in>
-    <router-link v-if="ready" id="Start" class="Buttons" to="/waiting">Start</router-link>
+    <button type="button" v-if="ready" @click="startGame">Start Game</button>
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
@@ -26,6 +26,15 @@ export default Vue.extend({
     },
     signedOut(): void {
       this.ready = false;
+    },
+    async startGame(): Promise<void> {
+      const response = await this.$http.post('/game/start');
+
+      if (response.status === 400) {
+        this.$router.push('/game');
+      } else {
+        this.$router.push('/waiting');
+      }
     },
   },
 });

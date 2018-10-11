@@ -15,6 +15,7 @@ Vue.prototype.$http = axios.create({
   headers: {
     'X-Requested-With': 'XMLHttpRequest',
   },
+  validateStatus: () => true,
 });
 
 declare module 'vue/types/vue' {
