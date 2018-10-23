@@ -52,6 +52,13 @@ html {
   height: 100%;
 }
 
+/*Creates that black bar over the background*/
+#container {
+  width: 100%;
+  height: 10%;
+  background-color: black;
+}
+
 /*Makes the image take up the whole screen*/
 #Play {
   height: 100%;
@@ -66,13 +73,6 @@ html {
 
   background: no-repeat center;
   background-size: cover;
-}
-
-/*Creates that black bar over the background*/
-#container {
-  width: 100%;
-  height: 10%;
-  background-color: black;
 }
 
 /*Edits text...for some reason needed to be an id or a class, wouldn't let me edit 
