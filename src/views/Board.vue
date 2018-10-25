@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <img src="@/assets/Playspace.png" id="Play" ondrop="drop(event)" ondragover="allowDrop(event)">
-                
-        <div draggable="true" ondragstart="drag(event)" class="piece">
-            <img src="@/assets/PWhitePiece.png" class="Wpiece">
-        </div>
+    <div id="contain">
+        <img src="@/assets/Playspace.png" id="Play">
+
+        <canvas id="myCanvas"></canvas>
     </div>
 </template>
 
@@ -14,6 +12,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  margin: 0px;
 }
 
 #Play {
@@ -31,42 +30,33 @@ body {
   background-size: cover;
 }
 
-.piece {
-  height: 26.38%;
-  width: auto;
-}
-
-.Wpiece {
+canvas {
   position: absolute;
-  background: no-repeat center;
-  height: 12%;
-  width: auto;
+  overflow: hidden;
+
+  width: 63%;
+  height: 100%;
+  top: 0;
+  left: 19%;
+
+  border: 1px solid red;
 }
 </style>
 
-<script lang="ts">
+<script>
 import HelloWorld from '@/components/HelloWorld.vue';
-
 import Vue from 'vue';
 
-export default Vue.extend({
+export default {
   name: 'boardSpace',
   components: {
     HelloWorld,
   },
-});
+};
+
+window.onload = () => {
+  const canvas = document.getElementById('myCanvas');
+
+  const c = canvas.getContext('2d');
+};
 </script>
-
-<script>
-function drag(ev) {
-  ev.dataTransfer.setData('Image', ev.target.id);
-}
-
-function drop(ev) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData('Image');
-
-  ev.target.appendChild(document.getElementById(data));
-}
-</script>
-"
