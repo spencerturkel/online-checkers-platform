@@ -1,5 +1,5 @@
 <template>
-    <button @click="signOut">Sign Out</button>
+    <b-button @click="signOut">Sign Out</b-button>
 </template>
 
 <script lang="ts">
@@ -15,10 +15,10 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="css">
- button{
-  position:absolute;
-  width:100;
+button {
+  position: absolute;
+  width: 100;
   top: 30%;
   text-align: center;
- }
+}
 </style>
