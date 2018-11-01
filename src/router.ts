@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import AccountPage from './views/AccountPage.vue';
 import Game from './views/Game.vue';
 import Home from './views/Home.vue';
 import Lose from './views/Lose.vue';
@@ -45,6 +46,11 @@ export default new Router({
       path: '/lose',
       name: 'lose-screen',
       component: Lose,
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: AccountPage,
     },
   ],
 });
