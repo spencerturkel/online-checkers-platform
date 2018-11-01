@@ -6,6 +6,7 @@ script: npm run build
 deploy:
   local-dir: dist
   provider: pages
+  fqdn: onlinecheckersplatform.com
   skip-cleanup: true
   github-token: '$GITHUB_TOKEN'
   keep-history: true
