@@ -1,8 +1,6 @@
 <template>
     <div id="contain">
         <img src="@/assets/Playspace.png" id="Play">
-
-        <canvas id="myCanvas"></canvas>
     </div>
 </template>
 
@@ -29,18 +27,6 @@ body {
   background: no-repeat center;
   background-size: cover;
 }
-
-canvas {
-  position: absolute;
-  overflow: hidden;
-
-  width: 63%;
-  height: 100%;
-  top: 0;
-  left: 19%;
-
-  border: 1px solid red;
-}
 </style>
 
 <script>
@@ -52,11 +38,5 @@ export default {
   components: {
     HelloWorld,
   },
-};
-
-window.onload = () => {
-  const canvas = document.getElementById('myCanvas');
-
-  const c = canvas.getContext('2d');
 };
 </script>
