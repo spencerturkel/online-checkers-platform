@@ -1,9 +1,24 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Checkers"/>
-    <sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in>
-    <button type="button" v-if="ready" @click="startGame">Start Game</button>
-    <router-link to="/account">Account</router-link>
+
+    <b-container> 
+      <b-row v-if="ready">
+        <b-col><b-button type="button"
+                size="lg" variant="primary"
+                @click="startGame">Start Game</b-button></b-col>
+      </b-row>
+      
+      <b-row v-if="ready"> 
+        <b-col><b-button to="/account"
+                size="lg" variant="primary">Account</b-button></b-col>
+      </b-row>
+      
+      <b-row>
+        <b-col><sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in></b-col>
+      </b-row>
+    </b-container>
+    
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
