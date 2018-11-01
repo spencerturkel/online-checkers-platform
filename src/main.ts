@@ -6,6 +6,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
+Vue.prototype.$user = null;
 Vue.prototype.$http = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
@@ -21,6 +22,10 @@ Vue.prototype.$http = axios.create({
 declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
+    $user: null | {
+      isPremium: boolean;
+      name: string;
+    };
   }
 }
 

@@ -22,10 +22,10 @@ export default Vue.extend({
     signedOut(): boolean {
       return this.user == null;
     },
+    user(): string {
+      return this.$user!.name;
+    },
   },
-  data: () => ({
-    user: null as null | string,
-  }),
   mounted() {
     gapi.load('auth2', () => {
       const auth = gapi.auth2.getAuthInstance();
@@ -37,17 +37,17 @@ export default Vue.extend({
     });
   },
   methods: {
-    onSignedIn(user: gapi.auth2.GoogleUser) {
+    onSignedIn(user: gapi.auth2.GoogleUser): void {
       console.log('signed in');
       const profile = user.getBasicProfile();
       if (profile) {
-        this.user = profile.getName();
+        this.$user = { isPremium: false, name: profile.getName() };
         this.$emit('signedIn');
       }
     },
-    async onSignedOut() {
+    async onSignedOut(): Promise<void> {
       console.log('signed out');
-      this.user = null;
+      this.$user = null;
       console.log('deleting auth');
       try {
         await this.$http.delete('/auth');
