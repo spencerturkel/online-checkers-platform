@@ -2,7 +2,9 @@
   <div class="home">
     <HelloWorld msg="Welcome to Checkers"/>
     <sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in>
-    <button type="button" v-if="ready" @click="startGame">Start Game</button>
+    <b-button type="button"
+            size="lg" variant="primary"
+            v-if="ready" @click="startGame">Start Game</b-button>
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>

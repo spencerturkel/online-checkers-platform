@@ -1,10 +1,10 @@
 <template>
     <div>
-    <google-sign-in v-if="signedOut" @signedIn="onSignedIn"></google-sign-in>
-    <template v-else>
+    <template v-if="user">
         <div class="center">Welcome, {{user}}!</div>
         <google-sign-out></google-sign-out>
     </template>
+    <google-sign-in v-if="!user" @signedIn="onSignedIn"></google-sign-in>
     </div>
 </template>
 
@@ -19,11 +19,8 @@ export default Vue.extend({
     GoogleSignOut,
   },
   computed: {
-    signedOut(): boolean {
-      return this.user == null;
-    },
-    user(): string {
-      return this.$user!.name;
+    user(): string | null {
+      return this.$user && this.$user.name;
     },
   },
   mounted() {
