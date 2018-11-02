@@ -1,13 +1,25 @@
 <template>
     <div>
-        <h1 v-if="$user">{{$user.name}}</h1>
         <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
         <div id="stats">
-          <b-container> 
+          <h1>Account</h1>
+         <h1 v-if="$user">{{$user.name}}</h1>
+          <b-container>
+            <b-row>
+              <b-col cols="5" id="wins">Wins</b-col>
+              <b-col cols="2" id="losses">Losses</b-col>
+              <b-col cols="2" id ="games">Games</b-col>
+            </b-row> 
             <b-row>
               <b-col cols="5" id="wins">{{wins}}</b-col>
               <b-col cols="2" id="losses">{{losses}}</b-col>
               <b-col cols="2" id ="games">{{games}}</b-col>
+            </b-row>
+            <b-row>
+              <b-col><b-button>Upgrade</b-button></b-col>
+            </b-row>
+            <b-row>
+              <b-col><b-button to="/">Main Menu</b-button></b-col>
             </b-row>
           </b-container>
         </div>
@@ -22,6 +34,7 @@ export default Vue.extend({
   // Mounted as soon as component gets on the page
   async mounted(): Promise<void> {
     // await waits for the returned promis of get
+
     const stats = await this.$http.get('/user/stats');
     if (stats.status === 200) {
       this.wins = stats.data.wins;
@@ -60,9 +73,14 @@ html {
 }
 
 #stats {
-  position: absolute;
+  position: fixed;
+  height: 45%;
   width: 75%;
+
+  left: 12.5%;
   top: 25%;
+  background: no-repeat center white;
+  border: 3px solid black;
 }
 
 #wins {
