@@ -27,7 +27,12 @@ export default Vue.extend({
 
       try {
         await this.$http.post('/auth/google', { token });
-        this.$emit('signedIn', user);
+        this.$root.$data.user = {
+          isPremium: false,
+          name: user.getBasicProfile().getName(),
+          signOut: () => gapi.auth2.getAuthInstance().signOut(),
+        };
+        this.$emit('signedIn');
       } catch (e) {
         this.$emit('signInFailed');
         console.error('Error authenticating with google', e);

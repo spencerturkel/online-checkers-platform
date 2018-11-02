@@ -7,6 +7,7 @@ import draggable from 'vuedraggable';
 
 import App from './App.vue';
 import router from './router';
+import { User } from './user';
 
 Vue.component('draggable', draggable);
 
@@ -30,14 +31,13 @@ Vue.prototype.$http = axios.create({
 declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
-    $user: null | {
-      isPremium: boolean;
-      name: string;
-    };
   }
 }
 
 new Vue({
+  data: {
+    user: null as null | User,
+  },
   router,
   render: h => h(App),
 }).$mount('#app');

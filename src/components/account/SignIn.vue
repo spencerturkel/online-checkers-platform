@@ -1,8 +1,8 @@
 <template>
     <div>
-    <template v-if="signedIn">
-        <div class="center">Welcome, {{$user.name}}!</div>
-        <google-sign-out></google-sign-out>
+    <template v-if="$root.$data.user">
+        <div class="center">Welcome, {{$root.$data.user.name}}!</div>
+        <b-button @click="onSignedOut">Sign Out</b-button>
     </template>
     <google-sign-in v-else @signedIn="onSignedIn"></google-sign-in>
     </div>
@@ -11,40 +11,19 @@
 <script lang="ts">
 import Vue from 'vue';
 import GoogleSignIn from './GoogleSignIn.vue';
-import GoogleSignOut from './GoogleSignOut.vue';
 
 export default Vue.extend({
   components: {
     GoogleSignIn,
-    GoogleSignOut,
-  },
-  data() {
-    return {
-      signedIn: this.$user != null,
-    };
-  },
-  mounted() {
-    gapi.load('auth2', () => {
-      const auth = gapi.auth2.getAuthInstance();
-      auth.isSignedIn.listen(signedIn => {
-        if (!signedIn) {
-          this.onSignedOut();
-        }
-      });
-    });
   },
   methods: {
-    onSignedIn(user: gapi.auth2.GoogleUser): void {
-      const profile = user.getBasicProfile();
-      if (profile) {
-        this.signedIn = true;
-        this.$user = { isPremium: false, name: profile.getName() };
-        this.$emit('signedIn');
-      }
+    onSignedIn(name: string): void {
+      this.$emit('signedIn');
     },
     async onSignedOut(): Promise<void> {
-      this.$user = null;
-      this.signedIn = false;
+      console.log('signed out');
+      await this.$root.$data.user.signOut();
+      this.$root.$data.user = null;
       try {
         await this.$http.delete('/auth');
       } catch (e) {
