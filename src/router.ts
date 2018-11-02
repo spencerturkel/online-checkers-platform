@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import AccountPage from './views/AccountPage.vue';
 import Board from './views/Board.vue';
 import Game from './views/Game.vue';
 import Home from './views/Home.vue';
@@ -51,6 +52,11 @@ export default new Router({
       path: '/board',
       name: 'boardSpace',
       component: Board,
+    },
+    {
+      path: '/account',
+      name: 'account',
+      component: AccountPage,
     },
   ],
 });
