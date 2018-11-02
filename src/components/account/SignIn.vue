@@ -4,22 +4,32 @@
         <div class="center">Welcome, {{$root.$data.user.name}}!</div>
         <b-button @click="onSignedOut">Sign Out</b-button>
     </template>
-    <google-sign-in v-else @signedIn="onSignedIn"></google-sign-in>
+    <template v-else>
+      <b-row>
+        <b-col>
+          <dev-sign-in v-if="!$production"></dev-sign-in>
+        </b-col>
+      </b-row>
+      <b-row class="my-3">
+        <b-col>
+          <google-sign-in></google-sign-in>
+        </b-col>
+      </b-row>
+    </template>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
 
 export default Vue.extend({
   components: {
+    DevSignIn,
     GoogleSignIn,
   },
   methods: {
-    onSignedIn(name: string): void {
-      this.$emit('signedIn');
-    },
     async onSignedOut(): Promise<void> {
       console.log('signed out');
       await this.$root.$data.user.signOut();

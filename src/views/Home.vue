@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <HelloWorld msg="Welcome to Checkers"/>
-    <sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in>
+    <sign-in></sign-in>
     <b-button type="button"
             size="lg" variant="primary"
             v-if="ready" @click="startGame">Start Game</b-button>
@@ -21,14 +21,12 @@ export default Vue.extend({
     HelloWorld,
     SignIn,
   },
-  data: () => ({ ready: false }),
+  computed: {
+    ready(): boolean {
+      return this.$root.$data.user != null;
+    },
+  },
   methods: {
-    signedIn(): void {
-      this.ready = true;
-    },
-    signedOut(): void {
-      this.ready = false;
-    },
     async startGame(): Promise<void> {
       const response = await this.$http.post('/game/start');
 

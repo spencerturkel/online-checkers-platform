@@ -15,7 +15,6 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$user = null;
 Vue.prototype.$http = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
@@ -27,10 +26,12 @@ Vue.prototype.$http = axios.create({
   },
   validateStatus: () => true,
 });
+Vue.prototype.$production = process.env.NODE_ENV === 'production';
 
 declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
+    $production: boolean;
   }
 }
 
