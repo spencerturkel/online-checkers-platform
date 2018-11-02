@@ -1,10 +1,10 @@
 <template>
     <div>
-    <template v-if="user">
-        <div class="center">Welcome, {{user}}!</div>
+    <template v-if="signedIn">
+        <div class="center">Welcome, {{$user.name}}!</div>
         <google-sign-out></google-sign-out>
     </template>
-    <google-sign-in v-if="!user" @signedIn="onSignedIn"></google-sign-in>
+    <google-sign-in v-else @signedIn="onSignedIn"></google-sign-in>
     </div>
 </template>
 
@@ -18,10 +18,10 @@ export default Vue.extend({
     GoogleSignIn,
     GoogleSignOut,
   },
-  computed: {
-    user(): string | null {
-      return this.$user && this.$user.name;
-    },
+  data() {
+    return {
+      signedIn: this.$user != null,
+    };
   },
   mounted() {
     gapi.load('auth2', () => {
@@ -35,17 +35,16 @@ export default Vue.extend({
   },
   methods: {
     onSignedIn(user: gapi.auth2.GoogleUser): void {
-      console.log('signed in');
       const profile = user.getBasicProfile();
       if (profile) {
+        this.signedIn = true;
         this.$user = { isPremium: false, name: profile.getName() };
         this.$emit('signedIn');
       }
     },
     async onSignedOut(): Promise<void> {
-      console.log('signed out');
       this.$user = null;
-      console.log('deleting auth');
+      this.signedIn = false;
       try {
         await this.$http.delete('/auth');
       } catch (e) {
