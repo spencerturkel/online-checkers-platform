@@ -1,20 +1,20 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Checkers"/>
-    <b-container> 
-      <b-row v-if="ready">
-        <b-col><b-button type="button"
-                size="lg" variant="primary"
-                @click="startGame">Start Game</b-button></b-col>
-      </b-row>
-      
-      <b-row v-if="ready"> 
-        <b-col><b-button to="/account"
-                size="lg" variant="primary">Account</b-button></b-col>
-      </b-row>
-      
+    <HelloWorld v-if="!ready" msg="Welcome to Checkers"/>
+
+    <sign-in></sign-in>
+    
+    <b-container>
       <b-row>
-        <b-col><sign-in @signedIn="signedIn" @signedOut="signedOut"></sign-in></b-col>
+          <b-col><b-button type="button"
+              size="lg" variant="primary"
+              v-if="ready" @click="startGame">Start Game</b-button></b-col>
+      </b-row>
+    
+      <b-row>
+        <b-col><b-button to="/account"
+                size="lg" variant="primary"
+                v-if="ready">Account</b-button></b-col>
       </b-row>
     </b-container>
     
@@ -34,14 +34,12 @@ export default Vue.extend({
     HelloWorld,
     SignIn,
   },
-  data: () => ({ ready: false }),
+  computed: {
+    ready(): boolean {
+      return this.$root.$data.user != null;
+    },
+  },
   methods: {
-    signedIn(): void {
-      this.ready = true;
-    },
-    signedOut(): void {
-      this.ready = false;
-    },
     async startGame(): Promise<void> {
       const response = await this.$http.post('/game/start');
 

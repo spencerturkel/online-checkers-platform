@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <b-container id="app">
     <div id="nav">
     </div>
     <router-view/>
-  </div>
+  </b-container>
 </template>
 
 <script lang="ts">
