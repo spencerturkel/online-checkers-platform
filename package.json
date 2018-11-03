@@ -15,6 +15,7 @@
     "util:e2e:firefox:headless": "testcafe firefox:headless tests"
   },
   "dependencies": {
+    "@types/stripe-checkout": "^1.0.2",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",

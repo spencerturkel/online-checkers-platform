@@ -2,6 +2,9 @@
     <div>
     <template v-if="$root.$data.user">
         <div class="center">Welcome, {{$root.$data.user.name}}!</div>
+        <upgrade v-if="!$root.$data.user.isPremium">
+                  Become a Premium user!
+        </upgrade>
         <b-button @click="onSignedOut">Sign Out</b-button>
     </template>
     <template v-else>
@@ -23,15 +26,16 @@
 import Vue from 'vue';
 import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
+import Upgrade from './Upgrade.vue';
 
 export default Vue.extend({
   components: {
     DevSignIn,
     GoogleSignIn,
+    Upgrade,
   },
   methods: {
     async onSignedOut(): Promise<void> {
-      console.log('signed out');
       await this.$root.$data.user.signOut();
       this.$root.$data.user = null;
       try {
