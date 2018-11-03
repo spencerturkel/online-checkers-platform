@@ -3,7 +3,7 @@
         <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
         <div id="stats">
           <h1>Account</h1>
-         <h1 v-if="$user">{{$user.name}}</h1>
+         <h1 v-if="$root.$data.user">{{$root.$data.user.name}}</h1>
           <b-container>
             <b-row>
               <b-col cols="5" id="wins">Wins</b-col>
@@ -16,10 +16,10 @@
               <b-col cols="2" id ="games">{{games}}</b-col>
             </b-row>
             <b-row>
-              <b-col><b-button>Upgrade</b-button></b-col>
+              <b-col><b-button variant="warning">Upgrade</b-button></b-col>
             </b-row>
             <b-row>
-              <b-col><b-button to="/">Main Menu</b-button></b-col>
+              <b-col><b-button variant="danger" to="/">Main Menu</b-button></b-col>
             </b-row>
           </b-container>
         </div>

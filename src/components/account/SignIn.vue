@@ -1,51 +1,41 @@
 <template>
     <div>
-    <template v-if="$user">
-        <div class="center">Welcome, {{$user.name}}!</div>
-        <google-sign-out></google-sign-out>
+    <template v-if="$root.$data.user">
+      <h1>Welcome, {{$root.$data.user.name}}!</h1>
+        <b-container>
+          <b-row><b-col><b-button @click="onSignedOut">Sign Out</b-button></b-col></b-row>
+        </b-container>
     </template>
-    <google-sign-in v-if="!$user" @signedIn="onSignedIn"></google-sign-in>
+    <template v-else>
+      <b-row>
+        <b-col>
+          <dev-sign-in v-if="!$production"></dev-sign-in>
+        </b-col>
+      </b-row>
+      <b-row class="my-3">
+        <b-col>
+          <google-sign-in></google-sign-in>
+        </b-col>
+      </b-row>
+    </template>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
-import GoogleSignOut from './GoogleSignOut.vue';
 
 export default Vue.extend({
   components: {
+    DevSignIn,
     GoogleSignIn,
-    GoogleSignOut,
-  },
-  computed: {
-    user(): string | null {
-      return this.$user && this.$user.name;
-    },
-  },
-  mounted() {
-    gapi.load('auth2', () => {
-      const auth = gapi.auth2.getAuthInstance();
-      auth.isSignedIn.listen(signedIn => {
-        if (!signedIn) {
-          this.onSignedOut();
-        }
-      });
-    });
   },
   methods: {
-    onSignedIn(user: gapi.auth2.GoogleUser): void {
-      console.log('signed in');
-      const profile = user.getBasicProfile();
-      if (profile) {
-        this.$user = { isPremium: false, name: profile.getName() };
-        this.$emit('signedIn');
-      }
-    },
     async onSignedOut(): Promise<void> {
       console.log('signed out');
-      this.$user = null;
-      console.log('deleting auth');
+      await this.$root.$data.user.signOut();
+      this.$root.$data.user = null;
       try {
         await this.$http.delete('/auth');
       } catch (e) {
@@ -60,7 +50,6 @@ export default Vue.extend({
 <style scoped lang="css">
 div.center {
   position: absolute;
-  top: 25%;
   width: 100%;
   text-align: center;
 }

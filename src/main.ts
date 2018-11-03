@@ -3,15 +3,18 @@ import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Vue from 'vue';
+import draggable from 'vuedraggable';
 
 import App from './App.vue';
 import router from './router';
+import { User } from './user';
+
+Vue.component('draggable', draggable);
 
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$user = null;
 Vue.prototype.$http = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
@@ -23,18 +26,19 @@ Vue.prototype.$http = axios.create({
   },
   validateStatus: () => true,
 });
+Vue.prototype.$production = process.env.NODE_ENV === 'production';
 
 declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
-    $user: null | {
-      isPremium: boolean;
-      name: string;
-    };
+    $production: boolean;
   }
 }
 
 new Vue({
+  data: {
+    user: null as null | User,
+  },
   router,
   render: h => h(App),
 }).$mount('#app');
