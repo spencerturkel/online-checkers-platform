@@ -37,7 +37,12 @@ declare module 'vue/types/vue' {
 
 new Vue({
   data: {
-    user: null as null | User,
+    user: {
+      isGuest: true,
+      isPremium: false,
+      name: 'Guest',
+      signOut: () => Promise.resolve(),
+    } as User,
   },
   router,
   render: h => h(App),
