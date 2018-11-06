@@ -1,23 +1,31 @@
 <template>
-  <b-container>
-    <b-row v-for="(row, rowIndex) in board" :key="rowIndex">
-      <b-col
-        v-for="(space, columnIndex) in row"
-        :class="getClassFor(rowIndex, columnIndex)"
-        :key="columnIndex"
-        @dragenter.prevent="void 0"
-        @dragover.prevent="void 0"
-        @drop="drop(rowIndex, columnIndex)"
-      >
-        <span
+  <table>
+    <tr
+      v-for="(row, rowIndex) in board"
+      :key="rowIndex">
+        <td
+          v-for="(space, columnIndex) in row"
+          :key="columnIndex"
+          :class="getClassFor(rowIndex, columnIndex)"
+          @dragenter.prevent="void 0"
+          @dragover.prevent="void 0"
+          @drop="drop(rowIndex, columnIndex)">
+          <div
           v-if="space"
           draggable="true"
           @dragstart="dragstart($event, rowIndex, columnIndex)"
-        >{{space}}</span>
-        <span v-else>null</span>
-      </b-col>
-    </b-row>
-  </b-container>
+          :class="space">
+            &nbsp;
+        </div>
+
+        <div v-else>
+          &nbsp;
+        </div>
+        </td>
+    </tr>
+
+    
+  </table>
 </template>
 
 <script lang="ts">
@@ -34,8 +42,8 @@ export default Vue.extend({
       ['D', null, 'D', null, 'D', null, 'D', null],
       [null, 'D', null, 'D', null, 'D', null, 'D'],
       [null, null, null, null, null, null, null, null],
-      [null, 'L', null, null, null, null, null, null],
-      [null, null, 'L', null, 'L', null, 'L', null],
+      [null, null, null, null, null, null, null, null],
+      ['L', null, 'L', null, 'L', null, 'L', null],
       [null, 'L', null, 'L', null, 'L', null, 'L'],
       ['L', null, 'L', null, 'L', null, 'L', null],
     ];
@@ -74,6 +82,12 @@ body {
   margin: 0px;
 }
 
+.row {
+  position: absolute;
+  width: 100%;
+  height: 12.5%;
+}
+
 .dark {
   background-color: red;
 }
@@ -84,26 +98,50 @@ body {
 
 .L {
   background-color: white;
+
+  width: 75%;
+  height: 75%;
+
+  vertical-align: middle;
+
+  margin-left: auto;
+  margin-right: auto;
+
   border-radius: 50%;
 }
 
 .D {
   background-color: black;
+
+  width: 75%;
+  height: 75%;
+
+  vertical-align: middle;
+
+  margin-left: auto;
+  margin-right: auto;
+
   border-radius: 50%;
 }
 
-#Play {
+.DK {
+  background: url('../assets/BCrown.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+.LK {
+  background: url('../assets/WCrown.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+table {
+  position: absolute;
   height: 100%;
-  width: 100%;
+  width: 62.74%;
 
-  position: fixed;
+  top: 0;
+  left: 18.62%;
 
-  left: 0px;
-  top: 0px;
-
-  z-index: -1;
-
-  background: no-repeat center;
-  background-size: cover;
+  background-color: red;
 }
 </style>
