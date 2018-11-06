@@ -15,7 +15,6 @@
     "util:e2e:firefox:headless": "testcafe firefox:headless tests"
   },
   "dependencies": {
-    "@seregpie/vuedragdrop": "^18.8.13",
     "ajv": "^6.5.4",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",

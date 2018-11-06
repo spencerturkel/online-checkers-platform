@@ -1,8 +1,47 @@
 <template>
-    <div id="contain">
-        <img src="@/assets/Playspace.png" id="Play">
-    </div>
+  <b-container>
+    <!-- <img src="@/assets/Playspace.png" id="Play"> -->
+    <b-row v-for="(row, rowIndex) in board" :key="rowIndex">
+      <b-col
+        v-for="(space, columnIndex) in row"
+        :class="getClassFor(rowIndex, columnIndex)"
+        :key="columnIndex"
+      >{{space ? space : 'null'}}</b-col>
+    </b-row>
+  </b-container>
 </template>
+
+<script lang="ts">
+type Board = Array<Array<string | null>> | null;
+import Vue from 'vue';
+export default Vue.extend({
+  data: () => ({
+    board: null as Board,
+  }),
+  async mounted(): Promise<void> {
+    this.board = [
+      [null, 'D', null, 'D', null, 'D', null, 'D'],
+      ['D', null, 'D', null, 'D', null, 'D', null],
+      [null, 'D', null, 'D', null, 'D', null, 'D'],
+      [null, null, null, null, null, null, null, null],
+      [null, 'L', null, null, null, null, null, null],
+      [null, null, 'L', null, 'L', null, 'L', null],
+      [null, 'L', null, 'L', null, 'L', null, 'L'],
+      ['L', null, 'L', null, 'L', null, 'L', null],
+    ];
+  },
+  methods: {
+    getClassFor(rowIndex: number, columnIndex: number): string {
+      if (rowIndex % 2 === 0) {
+        return columnIndex % 2 === 0 ? 'dark' : 'light';
+      } else {
+        return columnIndex % 2 === 0 ? 'light' : 'dark';
+      }
+    },
+  },
+});
+</script>
+
 
 <style scoped>
 /*Makes the image take up the whole screen*/
@@ -11,6 +50,14 @@ body {
   height: 100%;
   width: 100%;
   margin: 0px;
+}
+
+.dark {
+  background-color: red;
+}
+
+.light {
+  background-color: gray;
 }
 
 #Play {
@@ -28,15 +75,3 @@ body {
   background-size: cover;
 }
 </style>
-
-<script>
-import HelloWorld from '@/components/HelloWorld.vue';
-import Vue from 'vue';
-
-export default {
-  name: 'boardSpace',
-  components: {
-    HelloWorld,
-  },
-};
-</script>
