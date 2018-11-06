@@ -18,6 +18,12 @@
           <b-button to="/account" size="lg" variant="primary">Account</b-button>
         </b-col>
       </b-row>
+
+      <b-row>
+        <b-col>
+          <b-button to="/board" size="lg" variant="primary">Board</b-button>
+        </b-col>
+      </b-row>
     </b-container>
 
     <div v-if="!$root.$data.user.isPremium" class="ad">
@@ -89,5 +95,13 @@ html {
 
 #sampleAd {
   color: orange;
+  vertical-align: middle;
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
