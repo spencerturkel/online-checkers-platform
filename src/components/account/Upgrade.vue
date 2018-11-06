@@ -1,12 +1,18 @@
 <template>
+  <div>
+    <b-alert
+      :show="showError"
+      variant="danger"
+    >There was an error upgrading your account. Please try again - you will not be charged twice.</b-alert>
     <b-button ref="btn" variant="success" @click.prevent="open">Remove Ads</b-button>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
 export default Vue.extend({
-  data: () => ({ handler: null! as StripeCheckoutHandler }),
+  data: () => ({ handler: null! as StripeCheckoutHandler, showError: false }),
   mounted() {
     const script = document.createElement('script');
     script.src = 'https://checkout.stripe.com/checkout.js';
@@ -28,16 +34,17 @@ export default Vue.extend({
       });
     },
     async upgrade(token: string, email: string | null) {
-      await this.$http.post(
-        '/user/upgrade',
-        {
-          stripeEmail: email,
-          stripeToken: token,
-        },
-        { validateStatus: status => status >= 200 && status < 300 },
-      );
+      const { status } = await this.$http.post('/user/upgrade', {
+        stripeEmail: email,
+        stripeToken: token,
+      });
 
-      this.$root.$data.user.isPremium = true;
+      if (status >= 200 && status < 300) {
+        this.$root.$data.user.isPremium = true;
+        this.showError = false;
+      } else {
+        this.showError = true;
+      }
     },
   },
 });

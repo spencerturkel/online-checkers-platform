@@ -3,6 +3,11 @@
     <h1>Welcome to Checkers</h1>
     <sign-in></sign-in>
     <b-container v-if="!$root.$data.user.isGuest">
+      <b-row v-if="!$root.$data.user.isPremium">
+        <b-col>
+          <upgrade></upgrade>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col>
           <b-button type="button" size="lg" variant="primary" @click="startGame">Start Game</b-button>
@@ -27,11 +32,13 @@
 import Vue from 'vue';
 
 import SignIn from '@/components/account/SignIn.vue';
+import Upgrade from '@/components/account/Upgrade.vue';
 
 export default Vue.extend({
   name: 'home',
   components: {
     SignIn,
+    Upgrade,
   },
   methods: {
     async startGame(): Promise<void> {

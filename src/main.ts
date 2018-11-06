@@ -3,13 +3,10 @@ import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Vue from 'vue';
-import draggable from 'vuedraggable';
 
 import App from './App.vue';
 import router from './router';
-import { User } from './user';
-
-Vue.component('draggable', draggable);
+import { guestUser } from './user';
 
 Vue.use(BootstrapVue);
 
@@ -37,12 +34,7 @@ declare module 'vue/types/vue' {
 
 new Vue({
   data: {
-    user: {
-      isGuest: true,
-      isPremium: false,
-      name: 'Guest',
-      signOut: () => Promise.resolve(),
-    } as User,
+    user: guestUser,
   },
   router,
   render: h => h(App),

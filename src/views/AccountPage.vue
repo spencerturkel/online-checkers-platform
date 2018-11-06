@@ -2,8 +2,10 @@
   <div>
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
     <div id="stats">
-      <h1>Account</h1>
-      <h1 v-if="$root.$data.user">{{$root.$data.user.name}}</h1>
+      <h1>Account
+        <b-badge v-if="user.isPremium" pill variant="success">Premium</b-badge>
+      </h1>
+      <h1>{{user.name}}</h1>
       <b-container>
         <b-row>
           <b-col cols="5" id="wins">Wins</b-col>
@@ -15,9 +17,9 @@
           <b-col cols="2" id="losses">{{losses}}</b-col>
           <b-col cols="2" id="games">{{games}}</b-col>
         </b-row>
-        <b-row v-if="!$root.$data.user.isPremium">
+        <b-row v-if="!user.isGuest && !user.isPremium">
           <b-col>
-            <b-button variant="warning">Upgrade</b-button>
+            <upgrade></upgrade>
           </b-col>
         </b-row>
         <b-row>
@@ -33,10 +35,19 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import Upgrade from '@/components/account/Upgrade.vue';
+import { User } from '../user';
+
 export default Vue.extend({
+  components: {
+    Upgrade,
+  },
   computed: {
     games(): number {
       return this.wins + this.losses;
+    },
+    user(): User {
+      return this.$root.$data.user;
     },
   },
   data: () => ({
