@@ -9,11 +9,15 @@
         @dragover.prevent="dragEnter(rowIndex, columnIndex)"
         @drop="drop(rowIndex, columnIndex)"
       >
-        <span v-if="space" draggable="true" @dragstart="dragstart(rowIndex, columnIndex)">
-          {{space}}
-          <!-- <img src="@/assets/PWhitePiece.png"> -->
+        
+        <span 
+          v-if="space" 
+          draggable="true" 
+          @dragstart="dragstart(rowIndex, columnIndex)"
+          :class="space">
         </span>
-        <span v-else>null</span>
+        
+        <span v-else>&nbsp;</span>
       </b-col>
     </b-row>
   </b-container>
@@ -77,6 +81,14 @@ body {
 
 .light {
   background-color: gray;
+}
+
+.L {
+}
+
+.D {
+  background: black;
+  border-radius: 50%;
 }
 
 #Play {

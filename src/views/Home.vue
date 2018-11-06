@@ -16,6 +16,10 @@
                 size="lg" variant="primary"
                 v-if="ready">Account</b-button></b-col>
       </b-row>
+
+      <b-row>
+        <b-col><b-button to="/board">Board</b-button></b-col>
+      </b-row>
     </b-container>
     
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
