@@ -27,6 +27,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
+import { guestUser } from '../../user';
 import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
 import Upgrade from './Upgrade.vue';
@@ -40,9 +42,9 @@ export default Vue.extend({
   methods: {
     async onSignedOut(): Promise<void> {
       await this.$root.$data.user.signOut();
-      this.$root.$data.user = null;
       try {
         await this.$http.delete('/auth');
+        this.$root.$data.user = guestUser;
       } catch (e) {
         console.error('Error deleting auth', e);
       }
