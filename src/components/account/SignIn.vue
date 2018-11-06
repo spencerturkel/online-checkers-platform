@@ -1,10 +1,14 @@
 <template>
-    <div>
-    <template v-if="$root.$data.user">
+  <div>
+    <template v-if="!$root.$data.user.isGuest">
       <h1>Welcome, {{$root.$data.user.name}}!</h1>
-        <b-container>
-          <b-row><b-col><b-button @click="onSignedOut">Sign Out</b-button></b-col></b-row>
-        </b-container>
+      <b-container>
+        <b-row>
+          <b-col>
+            <b-button @click="onSignedOut">Sign Out</b-button>
+          </b-col>
+        </b-row>
+      </b-container>
     </template>
     <template v-else>
       <b-row>
@@ -14,11 +18,11 @@
       </b-row>
       <b-row class="my-3">
         <b-col>
-          <google-sign-in></google-sign-in>
+          <!-- <google-sign-in></google-sign-in> -->
         </b-col>
       </b-row>
     </template>
-    </div>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,23 +1,19 @@
 <template>
   <div class="home">
-    <HelloWorld v-if="!ready" msg="Welcome to Checkers"/>
-
+    <h1>Welcome to Checkers</h1>
     <sign-in></sign-in>
-    
-    <b-container>
+    <b-container v-if="!$root.$data.user.isGuest">
       <b-row>
-          <b-col><b-button type="button"
-              size="lg" variant="primary"
-              v-if="ready" @click="startGame">Start Game</b-button></b-col>
+        <b-col>
+          <b-button type="button" size="lg" variant="primary" @click="startGame">Start Game</b-button>
+        </b-col>
       </b-row>
-    
       <b-row>
-        <b-col><b-button to="/account"
-                size="lg" variant="primary"
-                v-if="ready">Account</b-button></b-col>
+        <b-col>
+          <b-button to="/account" size="lg" variant="primary">Account</b-button>
+        </b-col>
       </b-row>
     </b-container>
-    
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
@@ -26,18 +22,11 @@
 import Vue from 'vue';
 
 import SignIn from '@/components/account/SignIn.vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 
 export default Vue.extend({
   name: 'home',
   components: {
-    HelloWorld,
     SignIn,
-  },
-  computed: {
-    ready(): boolean {
-      return this.$root.$data.user != null;
-    },
   },
   methods: {
     async startGame(): Promise<void> {

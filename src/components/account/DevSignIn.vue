@@ -1,9 +1,9 @@
 <template>
-    <b-form ref="form" inline novalidate :validated="validated" class="center">
-        <b-form-input class="mr-2" placeholder="User ID" required v-model="id"></b-form-input>
-        <b-form-checkbox class="mx-2" v-model="isPremium">Premium</b-form-checkbox>
-        <b-button variant="primary" class="mx-2" @click="submit">Sign In</b-button>
-    </b-form>
+  <b-form ref="form" inline novalidate :validated="validated" class="center">
+    <b-form-input class="mr-2" placeholder="User ID" required v-model="id"></b-form-input>
+    <b-form-checkbox class="mx-2" v-model="isPremium">Premium</b-form-checkbox>
+    <b-button variant="primary" class="mx-2" @click="submit">Sign In</b-button>
+  </b-form>
 </template>
 
 <script lang="ts">
@@ -23,6 +23,7 @@ export default Vue.extend({
       });
 
       this.$root.$data.user = {
+        isGuest: false,
         isPremium: this.isPremium,
         name: `Local User ${this.id}`,
         signOut: async () => null,
