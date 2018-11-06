@@ -1,5 +1,5 @@
 <template>
-    <div :id="elementId"></div>
+  <div :id="elementId"></div>
 </template>
 
 <script lang="ts">
@@ -22,14 +22,29 @@ export default Vue.extend({
   },
   methods: {
     async signIn(user: gapi.auth2.GoogleUser): Promise<void> {
-      this.$emit('signInStarted');
       const token = user.getAuthResponse().id_token;
 
       try {
-        await this.$http.post('/auth/google', { token });
-        this.$emit('signedIn', user);
+        await this.$http.post(
+          '/auth/google',
+          { token },
+          { validateStatus: status => status >= 200 && status < 300 },
+        );
+
+        // FIXME:
+        const { isPremium, name } = (await this.$http.get('/user', {
+          validateStatus: status => status === 200,
+        })).data;
+
+        this.$root.$data.user = {
+          isGuest: false,
+          isPremium,
+          name,
+          signOut: async () => {
+            gapi.auth.signOut();
+          },
+        };
       } catch (e) {
-        this.$emit('signInFailed');
         console.error('Error authenticating with google', e);
       }
     },
