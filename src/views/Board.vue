@@ -5,14 +5,15 @@
         v-for="(space, columnIndex) in row"
         :class="getClassFor(rowIndex, columnIndex)"
         :key="columnIndex"
-        @dragenter.prevent="dragEnter(rowIndex, columnIndex)"
-        @dragover.prevent="dragEnter(rowIndex, columnIndex)"
+        @dragenter.prevent="void 0"
+        @dragover.prevent="void 0"
         @drop="drop(rowIndex, columnIndex)"
       >
-        <span v-if="space" draggable="true" @dragstart="dragstart(rowIndex, columnIndex)">
-          {{space}}
-          <!-- <img src="@/assets/PWhitePiece.png"> -->
-        </span>
+        <span
+          v-if="space"
+          draggable="true"
+          @dragstart="dragstart($event, rowIndex, columnIndex)"
+        >{{space}}</span>
         <span v-else>null</span>
       </b-col>
     </b-row>
@@ -42,9 +43,11 @@ export default Vue.extend({
   methods: {
     dragEnter(rowIndex: number, columnIndex: number) {
       return;
-      // console.log(rowIndex, columnIndex);
     },
-    dragstart(rowIndex: number, columnIndex: number): void {
+    dragstart(event: DragEvent, rowIndex: number, columnIndex: number): void {
+      console.log(event);
+      event.dataTransfer.dropEffect = 'move';
+      event.dataTransfer.setData('text/plain', ''); // Required for Firefox
       this.dragging = { rowIndex, columnIndex };
     },
     drop(rowIndex: number, columnIndex: number): void {
