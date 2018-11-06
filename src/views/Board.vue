@@ -1,12 +1,20 @@
 <template>
   <b-container>
-    <!-- <img src="@/assets/Playspace.png" id="Play"> -->
     <b-row v-for="(row, rowIndex) in board" :key="rowIndex">
       <b-col
         v-for="(space, columnIndex) in row"
         :class="getClassFor(rowIndex, columnIndex)"
         :key="columnIndex"
-      >{{space ? space : 'null'}}</b-col>
+        @dragenter.prevent="dragEnter(rowIndex, columnIndex)"
+        @dragover.prevent="dragEnter(rowIndex, columnIndex)"
+        @drop="drop(rowIndex, columnIndex)"
+      >
+        <span v-if="space" draggable="true" @dragstart="dragstart(rowIndex, columnIndex)">
+          {{space}}
+          <!-- <img src="@/assets/PWhitePiece.png"> -->
+        </span>
+        <span v-else>null</span>
+      </b-col>
     </b-row>
   </b-container>
 </template>
@@ -17,6 +25,7 @@ import Vue from 'vue';
 export default Vue.extend({
   data: () => ({
     board: null as Board,
+    dragging: null as null | { rowIndex: number; columnIndex: number },
   }),
   async mounted(): Promise<void> {
     this.board = [
@@ -31,6 +40,16 @@ export default Vue.extend({
     ];
   },
   methods: {
+    dragEnter(rowIndex: number, columnIndex: number) {
+      return;
+      // console.log(rowIndex, columnIndex);
+    },
+    dragstart(rowIndex: number, columnIndex: number): void {
+      this.dragging = { rowIndex, columnIndex };
+    },
+    drop(rowIndex: number, columnIndex: number): void {
+      console.log('Dropped at (%d, %d)', rowIndex, columnIndex);
+    },
     getClassFor(rowIndex: number, columnIndex: number): string {
       if (rowIndex % 2 === 0) {
         return columnIndex % 2 === 0 ? 'dark' : 'light';
