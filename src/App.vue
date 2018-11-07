@@ -1,7 +1,6 @@
 <template>
   <b-container id="app">
-    <div id="nav">
-    </div>
+    <div id="nav"></div>
     <router-view/>
   </b-container>
 </template>
@@ -9,7 +8,9 @@
 <script lang="ts">
 import Vue from 'vue';
 
-export default Vue.extend({});
+export default Vue.extend({
+  name: 'App',
+});
 </script>
 
 <style scoped>

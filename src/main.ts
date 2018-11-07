@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import BootstrapVue from 'bootstrap-vue';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,7 +12,7 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$http = axios.create({
+const httpClient = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://api-onlinecheckersplatform.us-east-2.elasticbeanstalk.com'
@@ -23,6 +23,25 @@ Vue.prototype.$http = axios.create({
   },
   validateStatus: () => true,
 });
+
+declare module 'axios' {
+  // tslint:disable-next-line:no-any
+  interface AxiosResponse<T = any> {
+    isClientError: boolean;
+    isSuccess: boolean;
+  }
+}
+
+httpClient.interceptors.response.use(
+  response => {
+    response.isSuccess = response.status >= 200 && response.status < 300;
+    response.isClientError = response.status >= 400 && response.status < 500;
+    return response;
+  },
+  rejection => Promise.reject(rejection),
+);
+
+Vue.prototype.$http = httpClient;
 Vue.prototype.$production = process.env.NODE_ENV === 'production';
 
 declare module 'vue/types/vue' {

@@ -34,12 +34,12 @@ export default Vue.extend({
       });
     },
     async upgrade(token: string, email: string | null) {
-      const { status } = await this.$http.post('/user/upgrade', {
+      const { isSuccess } = await this.$http.post('/user/upgrade', {
         stripeEmail: email,
         stripeToken: token,
       });
 
-      if (status >= 200 && status < 300) {
+      if (isSuccess) {
         this.$root.$data.user.isPremium = true;
         this.showError = false;
       } else {
