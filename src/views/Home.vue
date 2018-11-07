@@ -18,18 +18,15 @@
           <b-button to="/account" size="lg" variant="primary">Account</b-button>
         </b-col>
       </b-row>
-
       <b-row>
         <b-col>
           <b-button to="/board" size="lg" variant="primary">Board</b-button>
         </b-col>
       </b-row>
     </b-container>
-
     <div v-if="!$root.$data.user.isPremium" class="ad">
-      <h1 id="sampleAd">This is an add. Upgrade now</h1>
+      <h1 id="sampleAd">This is an ad. Upgrade now.</h1>
     </div>
-
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
