@@ -8,6 +8,7 @@ import Vue from 'vue';
 let id = 0;
 
 export default Vue.extend({
+  name: 'GoogleSignIn',
   data: () => ({ uid: id++ }),
   computed: {
     elementId(): string {
@@ -24,29 +25,38 @@ export default Vue.extend({
     async signIn(user: gapi.auth2.GoogleUser): Promise<void> {
       const token = user.getAuthResponse().id_token;
 
-      try {
-        await this.$http.post(
-          '/auth/google',
-          { token },
-          { validateStatus: status => status >= 200 && status < 300 },
-        );
+      const { isError: googleError } = await this.$http.post(
+        '/auth/google',
+        { token },
+        { validateStatus: status => status >= 200 && status < 300 },
+      );
 
-        // FIXME:
-        const { isPremium, name } = (await this.$http.get('/user', {
-          validateStatus: status => status === 200,
-        })).data;
-
-        this.$root.$data.user = {
-          isGuest: false,
-          isPremium,
-          name,
-          signOut: async () => {
-            gapi.auth.signOut();
-          },
-        };
-      } catch (e) {
-        console.error('Error authenticating with google', e);
+      if (googleError) {
+        // TODO: show an error to the user
+        console.error('error authenticating with google');
+        return;
       }
+
+      const { data: userData, isError: dataError } = await this.$http.get(
+        '/user',
+      );
+
+      if (dataError) {
+        // TODO: show an error to the user
+        console.error('error retrieving user data');
+        return;
+      }
+
+      const { isPremium, name } = userData;
+
+      this.$root.$data.user = {
+        isGuest: false,
+        isPremium,
+        name,
+        signOut: async () => {
+          gapi.auth2.getAuthInstance().signOut();
+        },
+      };
     },
   },
 });

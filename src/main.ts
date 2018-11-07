@@ -27,7 +27,7 @@ const httpClient = axios.create({
 declare module 'axios' {
   // tslint:disable-next-line:no-any
   interface AxiosResponse<T = any> {
-    isClientError: boolean;
+    isError: boolean;
     isSuccess: boolean;
   }
 }
@@ -35,7 +35,7 @@ declare module 'axios' {
 httpClient.interceptors.response.use(
   response => {
     response.isSuccess = response.status >= 200 && response.status < 300;
-    response.isClientError = response.status >= 400 && response.status < 500;
+    response.isError = response.status >= 400;
     return response;
   },
   rejection => Promise.reject(rejection),

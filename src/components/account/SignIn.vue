@@ -18,7 +18,7 @@
       </b-row>
       <b-row class="my-3">
         <b-col>
-          <!-- <google-sign-in></google-sign-in> -->
+          <google-sign-in></google-sign-in>
         </b-col>
       </b-row>
     </template>
