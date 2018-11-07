@@ -1,21 +1,16 @@
 <template>
-    <div>
-        <HelloWorld msg="CONGRATULATIONS, YOU WON"/>
-        <router-link id="Back" to="/">Main Menu</router-link>
-
-        <img id="Background" src="@/assets/PWhitePiece.png"/>
-    </div>
+  <div>
+    <h1>CONGRATULATIONS, YOU WON</h1>
+    <router-link id="Back" to="/">Main Menu</router-link>
+    <img id="Background" src="@/assets/PWhitePiece.png">
+  </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'win-screen',
-  components: {
-    HelloWorld,
-  },
+  name: 'Win',
 });
 </script>
 

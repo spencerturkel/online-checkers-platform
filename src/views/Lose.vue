@@ -1,20 +1,16 @@
 <template>
-    <div>
-        <HelloWorld msg="BUMMER, YOU LOST"/>
-        <router-link id="Back" to="/">Main Menu</router-link>
-        <img id="Background" src="@/assets/PWhitePiece.png"/>
-    </div>
+  <div>
+    <h1>BUMMER, YOU LOST!</h1>
+    <router-link id="Back" to="/">Main Menu</router-link>
+    <img id="Background" src="@/assets/PWhitePiece.png">
+  </div>
 </template>
 
 <script lang="ts">
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'lose-screen',
-  components: {
-    HelloWorld,
-  },
+  name: 'Lose',
 });
 </script>
 

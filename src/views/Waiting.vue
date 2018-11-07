@@ -1,28 +1,21 @@
 <template>
-<div>
-    <!-- The below code sets the waiting screen as well as informs that we are waiting for a player
-        currently there are buttons that will allow us to proceed and return to the main screen-->
-    <img src="@/assets/Playspace.png" alt="Waiting Screen" id="Play"/>
+  <div>
+    <img src="@/assets/Playspace.png" alt="Waiting Screen" id="Play">
     <div id="container">
-        <HelloWorld msg="Waiting for Opponent" id ="HelloWorld"/>
+      <h1>Waiting for opponent...</h1>
     </div>
-
-     <router-link id="continue" to='/game'>Proceed</router-link> |
-     <router-link id="goBack" to='/'>Back</router-link>
-</div>
+    <router-link id="continue" to="/game">Proceed</router-link>|
+    <router-link id="goBack" to="/">Back</router-link>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-import HelloWorld from '@/components/HelloWorld.vue';
 import { delay } from '../util';
 
 export default Vue.extend({
   name: 'waiting',
-  components: {
-    HelloWorld,
-  },
   data: () => ({ alive: true }),
   beforeDestroy() {
     this.alive = false;
