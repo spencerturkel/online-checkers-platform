@@ -4,6 +4,7 @@
     <b-btn variant="danger" @click="leave">Leave</b-btn>
     <template v-if="state">
       <waiting-room v-if="state.name === 'waiting'" :state="state" :update="updateRoom"></waiting-room>
+      <deciding-room v-else-if="state.name === 'deciding'" :state="state" :update="updateRoom"></deciding-room>
     </template>
   </b-container>
 </template>
@@ -11,15 +12,14 @@
 <script lang="ts">
 import Vue from 'vue';
 
+import DecidingRoom from './DecidingRoom.vue';
+import { RoomState } from './room-state';
 import WaitingRoom from './WaitingRoom.vue';
-
-export interface RoomState {
-  name: string;
-}
 
 export default Vue.extend({
   name: 'Room',
   components: {
+    DecidingRoom,
     WaitingRoom,
   },
   data: () =>
