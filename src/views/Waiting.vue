@@ -3,14 +3,51 @@
     <!-- The below code sets the waiting screen as well as informs that we are waiting for a player
         currently there are buttons that will allow us to proceed and return to the main screen-->
     <img src="@/assets/Playspace.png" alt="Waiting Screen" id="Play"/>
-    <b-container fluid>
-      <b-form ref="form" inline novalidate :validated="validated">
-        <b-form-input class="mr-2" placeholder="Your friend's email" required v-model="id"></b-form-input>
-        <b-button variant="primary" class="mx-2" @click="sendEmail()">Send Invite</b-button>
-        <b-button variant="primary" @click="publish()">Publish</b-button>
-        <b-button v-if="!this.privateGame" variant="primary" @click="privatize()">Privatize</b-button>
-        <b-button v-else variant="primary" @click="privatize()">Publicize</b-button>
-      </b-form>
+      
+      <div class="contain">
+        <h1>Waiting Room</h1>
+      </div>
+
+    <b-container class="col-md-4 col-md-offset-4">
+      <b-row>
+          <b-col>
+            <b-form ref="form" 
+              inline 
+              novalidate 
+              :validated="validated">
+                <b-form-input class="mx-auto" 
+                  placeholder="Your friend's email" 
+                  required 
+                  v-model="id"></b-form-input>
+                <b-button variant="primary" 
+                  class="mx-auto" 
+                  @click="sendEmail()">Send Invite</b-button>
+            </b-form>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          &nbsp;
+        </b-row>
+
+        <b-row>
+          <b-col>
+            <b-button variant="primary" @click="publish()">Publish</b-button>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          <b-col>
+            <b-button v-if="!this.privateGame" variant="primary" @click="privatize()">Privatize</b-button>
+            <b-button v-else variant="primary" @click="privatize()">Publicize</b-button>
+          </b-col>
+        </b-row>
+
+        <b-row>
+          <b-col>
+              <b-button to="/" variant="danger">Main Menu</b-button>
+          </b-col>
+        </b-row>    
     </b-container>
 </div>
 </template>
@@ -93,5 +130,22 @@ html {
 
   background: no-repeat center;
   background-size: cover;
+}
+
+.contain {
+  width: 100%;
+  background-color: blue;
+}
+
+h1 {
+  color: white;
+  vertical-align: middle;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
