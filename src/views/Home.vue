@@ -26,10 +26,6 @@
       </b-row>
     </b-container>
 
-    <div v-if="!$root.$data.user.isPremium" class="ad">
-      <h1 id="sampleAd">This is an add. Upgrade now</h1>
-    </div>
-
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
@@ -79,29 +75,5 @@ html {
 
   background: no-repeat center;
   background-size: cover;
-}
-
-.ad {
-  position: absolute;
-
-  height: 10%;
-  width: 100%;
-
-  top: 90%;
-  left: 0;
-
-  background-color: blue;
-}
-
-#sampleAd {
-  color: orange;
-  vertical-align: middle;
-  animation: blinker 0.5s linear infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
 }
 </style>
