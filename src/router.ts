@@ -55,5 +55,9 @@ export default new Router({
       name: 'account',
       component: AccountPage,
     },
+    {
+      path: '*',
+      redirect: '/',
+    },
   ],
 });

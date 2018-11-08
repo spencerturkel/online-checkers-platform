@@ -23,8 +23,16 @@ export default Vue.extend({
     WaitingRoom,
   },
   data: () => ({ state: null } as { state: RoomState | null }),
+  async beforeCreate() {
+    if ((await this.$http.head('/user')).isError) {
+      this.$router.replace('/');
+    }
+  },
+  destroyed() {
+    console.warn('destroyed');
+  },
   async created() {
-    while (!this.state) {
+    while (this.$el && !this.state) {
       let response = await this.$http.get('/room');
 
       if (response.status === 200) {

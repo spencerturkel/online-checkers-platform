@@ -54,12 +54,16 @@ export default Vue.extend({
     wins: 0,
     losses: 0,
   }),
-  async mounted(): Promise<void> {
-    const stats = await this.$http.get('/user');
+  async created(): Promise<void> {
+    const { data, status } = await this.$http.get('/user');
 
-    if (stats.status === 200) {
-      this.wins = stats.data.wins;
-      this.losses = stats.data.wins;
+    if (status === 200) {
+      this.wins = data.wins;
+      this.losses = data.wins;
+    } else if (status === 403) {
+      this.$router.replace('/');
+    } else {
+      // TODO: show error
     }
   },
 });
