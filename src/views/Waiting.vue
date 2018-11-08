@@ -3,12 +3,15 @@
     <!-- The below code sets the waiting screen as well as informs that we are waiting for a player
         currently there are buttons that will allow us to proceed and return to the main screen-->
     <img src="@/assets/Playspace.png" alt="Waiting Screen" id="Play"/>
-    <div id="container">
-        <HelloWorld msg="Waiting for Opponent" id ="HelloWorld"/>
-    </div>
-
-     <router-link id="continue" to='/game'>Proceed</router-link> |
-     <router-link id="goBack" to='/'>Back</router-link>
+    <b-container fluid>
+      <b-form ref="form" inline novalidate :validated="validated">
+        <b-form-input class="mr-2" placeholder="Your friend's email" required v-model="id"></b-form-input>
+        <b-button variant="primary" class="mx-2" @click="sendEmail()">Send Invite</b-button>
+        <b-button variant="primary" @click="publish()">Publish</b-button>
+        <b-button v-if="!this.privateGame" variant="primary" @click="privatize()">Privatize</b-button>
+        <b-button v-else variant="primary" @click="privatize()">Publicize</b-button>
+      </b-form>
+    </b-container>
 </div>
 </template>
 
@@ -19,11 +22,7 @@ import HelloWorld from '@/components/HelloWorld.vue';
 import { delay } from '../util';
 
 export default Vue.extend({
-  name: 'waiting',
-  components: {
-    HelloWorld,
-  },
-  data: () => ({ alive: true }),
+  data: () => ({ alive: true, privateGame: false }),
   beforeDestroy() {
     this.alive = false;
   },
@@ -41,6 +40,27 @@ export default Vue.extend({
 
       await delay(200 /* milliseconds */);
     }
+  },
+
+  methods: {
+    sendEmail() {
+      console.log('This will send an email');
+      return;
+    },
+
+    publish() {
+      console.log('This will publish the game');
+      return;
+    },
+
+    privatize() {
+      this.privateGame = !this.privateGame;
+      if (this.privateGame) {
+        console.log('This game is private');
+      } else {
+        console.log('This game is public');
+      }
+    },
   },
 });
 </script>
@@ -73,25 +93,5 @@ html {
 
   background: no-repeat center;
   background-size: cover;
-}
-
-/*Edits text...for some reason needed to be an id or a class, wouldn't let me edit 
-  HelloWorld tag*/
-#HelloWorld {
-  color: white;
-  text-align: center;
-}
-
-/*Last Two things just let the buttons stand out*/
-#continue {
-  position: absolute;
-  top: 90%;
-  color: green;
-}
-
-#goBack {
-  position: absolute;
-  top: 95%;
-  color: red;
 }
 </style>

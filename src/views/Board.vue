@@ -30,7 +30,9 @@
 
 <script lang="ts">
 type Board = Array<Array<string | null>> | null;
+
 import Vue from 'vue';
+
 export default Vue.extend({
   data: () => ({
     board: null as Board,
@@ -53,6 +55,7 @@ export default Vue.extend({
       return;
     },
     dragstart(event: DragEvent, rowIndex: number, columnIndex: number): void {
+      // Picks up the first location
       console.log(event);
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.setData('text/plain', ''); // Required for Firefox
@@ -63,9 +66,9 @@ export default Vue.extend({
     },
     getClassFor(rowIndex: number, columnIndex: number): string {
       if (rowIndex % 2 === 0) {
-        return columnIndex % 2 === 0 ? 'dark' : 'light';
-      } else {
         return columnIndex % 2 === 0 ? 'light' : 'dark';
+      } else {
+        return columnIndex % 2 === 0 ? 'dark' : 'light';
       }
     },
   },
@@ -89,11 +92,23 @@ body {
 }
 
 .dark {
-  background-color: red;
+  background-color: black;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .light {
-  background-color: gray;
+  background-color: white;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .L {
@@ -111,7 +126,7 @@ body {
 }
 
 .D {
-  background-color: black;
+  background-color: gray;
 
   width: 75%;
   height: 75%;
@@ -141,7 +156,5 @@ table {
 
   top: 0;
   left: 18.62%;
-
-  background-color: red;
 }
 </style>
