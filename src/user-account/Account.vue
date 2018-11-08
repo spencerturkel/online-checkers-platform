@@ -35,10 +35,11 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import Upgrade from '@/components/account/Upgrade.vue';
 import { User } from '../user';
+import Upgrade from './Upgrade.vue';
 
 export default Vue.extend({
+  name: 'Account',
   components: {
     Upgrade,
   },

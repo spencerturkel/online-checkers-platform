@@ -28,7 +28,7 @@
 <script lang="ts">
 import Vue from 'vue';
 
-import { guestUser } from '../../user';
+import { guestUser } from '../user';
 import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
 import Upgrade from './Upgrade.vue';

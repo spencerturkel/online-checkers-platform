@@ -27,15 +27,15 @@
     <div v-if="!$root.$data.user.isPremium" class="ad">
       <h1 id="sampleAd">This is an ad. Upgrade now.</h1>
     </div>
-    <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
+    <img id="StartScreen" src="./assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 
-import SignIn from '@/components/account/SignIn.vue';
-import Upgrade from '@/components/account/Upgrade.vue';
+import SignIn from '@/user-account/SignIn.vue';
+import Upgrade from '@/user-account/Upgrade.vue';
 
 export default Vue.extend({
   name: 'home',

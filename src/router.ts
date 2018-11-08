@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router, { NavigationGuard } from 'vue-router';
 
+import Home from './Home.vue';
 import { httpClient } from './main';
-import AccountPage from './views/AccountPage.vue';
+import Account from './user-account/Account.vue';
 import Board from './views/Board.vue';
 import Game from './views/Game.vue';
-import Home from './views/Home.vue';
 import Lose from './views/Lose.vue';
 import Waiting from './views/Waiting.vue';
 import Win from './views/Win.vue';
@@ -63,7 +63,7 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      component: AccountPage,
+      component: Account,
       beforeEnter: authGuard,
     },
     {
