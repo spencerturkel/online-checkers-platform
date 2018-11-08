@@ -1,4 +1,5 @@
 export interface User {
+  id: string;
   isGuest: boolean;
   isPremium: boolean;
   name: string;
@@ -6,6 +7,7 @@ export interface User {
 }
 
 export const guestUser: User = {
+  id: '',
   isGuest: true,
   isPremium: false,
   name: 'Guest',

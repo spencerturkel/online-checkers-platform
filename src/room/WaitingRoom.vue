@@ -45,7 +45,7 @@ export default Vue.extend({
   },
   computed: {
     invitationLink(): string {
-      return `${window.location.origin}/join/${this.state.invitationToken}`;
+      return `${window.location.origin}/#/join/${this.state.invitationToken}`;
     },
     public_(): boolean {
       return this.state.public;

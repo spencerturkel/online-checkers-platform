@@ -5,6 +5,7 @@
     <template v-if="state">
       <waiting-room v-if="state.name === 'waiting'" :state="state" :update="updateRoom"></waiting-room>
       <deciding-room v-else-if="state.name === 'deciding'" :state="state" :update="updateRoom"></deciding-room>
+      <p v-else>Playing</p>
     </template>
   </b-container>
 </template>

@@ -36,7 +36,7 @@ export default new Router({
       beforeEnter: authGuard,
     },
     {
-      path: '/join/:invitationToken',
+      path: '/join/:token',
       component: () => import(/* webpackChunkName: "app.join" */ './Join.vue'),
     },
     {

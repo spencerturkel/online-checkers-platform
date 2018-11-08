@@ -3,8 +3,8 @@
         <h1>Against {{opponentName}}</h1>
         <h2>Vote who will go first</h2>
         <p v-if="opponentChoice">
-            <span class="name">{{opponentName}}</span>votes that
-            <span class="choice">{{opponentChoice}}</span>will go first.
+            <span class="name">{{opponentName}}</span>&nbsp;votes that
+            <span class="choice">{{opponentChoice}}</span>&nbsp;will go first.
         </p>
         <b-btn-group>
             <b-btn
@@ -42,12 +42,15 @@ export default Vue.extend({
     },
   },
   computed: {
-    opponentChoice(): string {
-      return this.state.opponentDecision === 'challenger'
+    opponentChoice(): string | null {
+      const decision = this.state.opponentDecision;
+      return decision === 'challenger'
         ? 'you'
-        : this.state.opponentDecision === 'opponent'
+        : decision === 'opponent'
           ? 'they'
-          : 'a random player';
+          : decision === 'random'
+            ? 'a random player'
+            : null;
     },
     opponentName(): string {
       return this.state.opponent.name;
@@ -55,7 +58,7 @@ export default Vue.extend({
   },
   methods: {
     async decide(decision: Decision) {
-      const response = await this.$http.post('/room/decide', { decision });
+      const response = await this.$http.post('/room/decision', { decision });
 
       if (response.isSuccess) {
         this.update();
