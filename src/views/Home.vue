@@ -10,7 +10,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button type="button" size="lg" variant="primary" @click="startGame">Start Game</b-button>
+          <b-button to="/room" size="lg" variant="primary">Create a Room</b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -43,17 +43,6 @@ export default Vue.extend({
     SignIn,
     Upgrade,
   },
-  methods: {
-    async startGame(): Promise<void> {
-      const response = await this.$http.post('/game/start');
-
-      if (response.status === 400) {
-        this.$router.push('/game');
-      } else {
-        this.$router.push('/waiting');
-      }
-    },
-  },
 });
 </script>
 
@@ -62,6 +51,11 @@ body,
 html {
   height: 100%;
 }
+
+.row {
+  margin-top: 1rem;
+}
+
 /*Gets the main menu screen to take up the screen*/
 #StartScreen {
   height: 100%;
