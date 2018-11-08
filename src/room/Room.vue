@@ -3,7 +3,7 @@
     <h1>Room</h1>
     <b-btn variant="danger" @click="leave">Leave</b-btn>
     <template v-if="state">
-      <waiting-room v-if="state.name === 'waiting'"></waiting-room>
+      <waiting-room v-if="state.name === 'waiting'" :state="state" :update="updateRoom"></waiting-room>
     </template>
   </b-container>
 </template>
@@ -48,12 +48,10 @@ export default Vue.extend({
         response = await this.$http.post('/room/create');
 
         if (response.isError) {
-          // TODO: handle errors
           console.error(response);
           clearInterval(this.heartbeat!);
         }
       } else {
-        // TODO: handle error
         console.error(response);
         clearInterval(this.heartbeat!);
       }
