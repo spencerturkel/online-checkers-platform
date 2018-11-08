@@ -1,9 +1,10 @@
 import Vue from 'vue';
-import Router, { NavigationGuard } from 'vue-router';
+import Router from 'vue-router';
 
 import Home from './Home.vue';
-import { httpClient } from './main';
+import Room from './room/Room.vue';
 import Account from './user-account/Account.vue';
+import UserGuard from './UserGuard.vue';
 import Board from './views/Board.vue';
 import Game from './views/Game.vue';
 import Lose from './views/Lose.vue';
@@ -11,14 +12,6 @@ import Waiting from './views/Waiting.vue';
 import Win from './views/Win.vue';
 
 Vue.use(Router);
-
-const authGuard: NavigationGuard = async (to, from, next) => {
-  if ((await httpClient.head('/user')).status === 403) {
-    next('/');
-  } else {
-    next();
-  }
-};
 
 export default new Router({
   base: process.env.BASE_URL,
@@ -30,10 +23,10 @@ export default new Router({
     },
     {
       path: '/room',
-      component: () =>
-        import(/* webpackChunkName: "app.room" */ /* webpackPrefetch: true */
-        './room/Room.vue'),
-      beforeEnter: authGuard,
+      component: UserGuard,
+      props: {
+        component: Room,
+      },
     },
     {
       path: '/join/:token',
@@ -67,8 +60,10 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      component: Account,
-      beforeEnter: authGuard,
+      component: UserGuard,
+      props: {
+        component: Account,
+      },
     },
     {
       path: '*',
