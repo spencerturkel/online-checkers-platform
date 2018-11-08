@@ -16,5 +16,14 @@ export default Vue.extend({
   components: {
     SignIn,
   },
+  async created() {
+    if (!this.$user) {
+      const response = await this.$http.get('/user');
+      if (response.isSuccess && response.data) {
+        const { id, name } = response.data;
+        this.$user = { id, name };
+      }
+    }
+  },
 });
 </script>
