@@ -5,11 +5,11 @@
 <script lang="ts">
 import Vue from 'vue';
 
-let id = 0;
+let nextUid = 0;
 
 export default Vue.extend({
   name: 'GoogleSignIn',
-  data: () => ({ uid: id++ }),
+  data: () => ({ uid: nextUid++ }),
   computed: {
     elementId(): string {
       return 'google-signin-' + this.uid;
@@ -47,9 +47,10 @@ export default Vue.extend({
         return;
       }
 
-      const { isPremium, name } = userData;
+      const { id, isPremium, name } = userData;
 
-      this.$root.$data.user = {
+      this.$user = {
+        id,
         isGuest: false,
         isPremium,
         name,
@@ -57,6 +58,9 @@ export default Vue.extend({
           gapi.auth2.getAuthInstance().signOut();
         },
       };
+
+      console.log('user.id', this.$user.id);
+      console.log('user.name', this.$user.name);
     },
   },
 });

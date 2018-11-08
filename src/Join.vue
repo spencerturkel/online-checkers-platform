@@ -28,7 +28,7 @@ export default Vue.extend({
   },
   methods: {
     async submit() {
-      const response = await this.$http.post('/auth/guest', {
+      let response = await this.$http.post('/auth/guest', {
         name: this.guestName,
       });
 
@@ -39,6 +39,17 @@ export default Vue.extend({
         return;
       }
 
+      response = await this.$http.get('/user');
+
+      if (response.isError) {
+        // TODO: report error
+        console.error(response);
+        return;
+      }
+
+      const { id, name } = response.data;
+      Object.assign(this.$user, { id, name });
+
       await this.join();
     },
     async join() {
@@ -48,6 +59,9 @@ export default Vue.extend({
 
       if (response.isSuccess) {
         this.$router.replace('/room/');
+      } else if (response.status === 400) {
+        await this.$http.post('/room/leave');
+        await this.join();
       } else {
         // TODO: report error
         console.error(response);

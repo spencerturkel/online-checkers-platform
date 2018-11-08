@@ -52,3 +52,8 @@ export interface PlayingState {
 }
 
 export type RoomState = WaitingState | DecidingState | PlayingState;
+
+export interface Room {
+  challenger: RoomUser;
+  state: RoomState;
+}

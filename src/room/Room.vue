@@ -2,9 +2,9 @@
   <b-container>
     <h1>Room</h1>
     <b-btn variant="danger" @click="leave">Leave</b-btn>
-    <template v-if="state">
-      <waiting-room v-if="state.name === 'waiting'" :state="state" :update="updateRoom"></waiting-room>
-      <deciding-room v-else-if="state.name === 'deciding'" :state="state" :update="updateRoom"></deciding-room>
+    <template v-if="room">
+      <waiting-room v-if="room.state.name === 'waiting'" :state="room.state" :update="updateRoom"></waiting-room>
+      <deciding-room v-else-if="room.state.name === 'deciding'" :room="room" :update="updateRoom"></deciding-room>
       <p v-else>Playing</p>
     </template>
   </b-container>
@@ -14,7 +14,7 @@
 import Vue from 'vue';
 
 import DecidingRoom from './DecidingRoom.vue';
-import { RoomState } from './room-state';
+import { Room } from './room-state';
 import WaitingRoom from './WaitingRoom.vue';
 
 export default Vue.extend({
@@ -24,9 +24,9 @@ export default Vue.extend({
     WaitingRoom,
   },
   data: () =>
-    ({ heartbeat: null, state: null } as {
+    ({ heartbeat: null, room: null } as {
       heartbeat: NodeJS.Timer | null;
-      state: RoomState | null;
+      room: Room | null;
     }),
   destroyed() {
     clearInterval(this.heartbeat!);
@@ -44,7 +44,7 @@ export default Vue.extend({
       let response = await this.$http.get('/room');
 
       if (response.status === 200) {
-        this.state = response.data.state;
+        this.room = response.data;
       } else if (response.status === 404) {
         response = await this.$http.post('/room/create');
 

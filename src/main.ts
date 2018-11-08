@@ -6,7 +6,7 @@ import Vue from 'vue';
 
 import App from './App.vue';
 import router from './router';
-import { guestUser } from './user';
+import { guestUser, User } from './user';
 
 Vue.use(BootstrapVue);
 
@@ -41,15 +41,25 @@ httpClient.interceptors.response.use(
   rejection => Promise.reject(rejection),
 );
 
-Vue.prototype.$http = httpClient;
-Vue.prototype.$production = process.env.NODE_ENV === 'production';
-
 declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
     $production: boolean;
+    $user: User;
   }
 }
+
+Vue.prototype.$http = httpClient;
+Vue.prototype.$production = process.env.NODE_ENV === 'production';
+
+Object.defineProperty(Vue.prototype, '$user', {
+  get() {
+    return (this as Vue).$root.$data.user;
+  },
+  set(value: User) {
+    (this as Vue).$root.$data.user = value;
+  },
+});
 
 new Vue({
   data: {

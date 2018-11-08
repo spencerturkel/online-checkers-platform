@@ -20,9 +20,10 @@ export default Vue.extend({
         id: this.id,
       });
 
-      const { isPremium, name } = (await this.$http.get('/user')).data;
+      const { id, isPremium, name } = (await this.$http.get('/user')).data;
 
       this.$root.$data.user = {
+        id,
         isGuest: false,
         isPremium,
         name,
