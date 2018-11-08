@@ -76,4 +76,28 @@ html {
   background: no-repeat center;
   background-size: cover;
 }
+
+.ad {
+  position: absolute;
+
+  height: 10%;
+  width: 100%;
+
+  top: 90%;
+  left: 0;
+
+  background-color: blue;
+}
+
+#sampleAd {
+  color: orange;
+  vertical-align: middle;
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
 </style>
