@@ -2,8 +2,8 @@
   <div class="home">
     <h1>Welcome to Checkers</h1>
     <sign-in></sign-in>
-    <b-container v-if="!$root.$data.user.isGuest">
-      <b-row v-if="!$root.$data.user.isPremium">
+    <b-container v-if="$user">
+      <b-row v-if="!$user.isPremium">
         <b-col>
           <upgrade></upgrade>
         </b-col>
@@ -18,13 +18,8 @@
           <b-button to="/account" size="lg" variant="primary">Account</b-button>
         </b-col>
       </b-row>
-      <b-row>
-        <b-col>
-          <b-button to="/board" size="lg" variant="primary">Board</b-button>
-        </b-col>
-      </b-row>
     </b-container>
-    <div v-if="!$root.$data.user.isPremium" class="ad">
+    <div v-if="!$user || !$user.isPremium" class="ad">
       <h1 id="sampleAd">This is an ad. Upgrade now.</h1>
     </div>
     <img id="StartScreen" src="./assets/CheckersMainMenuGraphic.png" alt="Start Screen">

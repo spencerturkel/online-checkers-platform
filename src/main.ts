@@ -6,7 +6,7 @@ import Vue from 'vue';
 
 import App from './App.vue';
 import router from './router';
-import { guestUser, User } from './user';
+import { User } from './user';
 
 Vue.use(BootstrapVue);
 
@@ -45,7 +45,7 @@ declare module 'vue/types/vue' {
   interface Vue {
     $http: typeof axios;
     $production: boolean;
-    $user: User;
+    $user: User | null;
   }
 }
 
@@ -53,17 +53,17 @@ Vue.prototype.$http = httpClient;
 Vue.prototype.$production = process.env.NODE_ENV === 'production';
 
 Object.defineProperty(Vue.prototype, '$user', {
-  get() {
-    return (this as Vue).$root.$data.user;
+  get(this: Vue) {
+    return this.$root.$data.user;
   },
-  set(value: User) {
-    (this as Vue).$root.$data.user = value;
+  set(this: Vue, value: User) {
+    this.$root.$data.user = value;
   },
 });
 
 new Vue({
   data: {
-    user: guestUser,
+    user: null,
   },
   router,
   render: h => h(App),

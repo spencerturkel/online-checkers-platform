@@ -1,15 +1,13 @@
-export interface User {
+export interface GuestUser {
   id: string;
-  isGuest: boolean;
-  isPremium: boolean;
   name: string;
-  signOut(): Promise<void>;
 }
 
-export const guestUser: User = {
-  id: '',
-  isGuest: true,
-  isPremium: false,
-  name: 'Guest',
-  signOut: () => Promise.resolve(),
-};
+export interface AuthenticatedUser {
+  id: string;
+  isPremium: boolean;
+  name: string;
+  socialSignOut(): Promise<void>;
+}
+
+export type User = GuestUser | AuthenticatedUser;

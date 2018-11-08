@@ -20,14 +20,15 @@ export default Vue.extend({
         id: this.id,
       });
 
-      const { id, isPremium, name } = (await this.$http.get('/user')).data;
+      const { userId: id, isPremium, name } = (await this.$http.get(
+        '/user',
+      )).data;
 
-      this.$root.$data.user = {
+      this.$user = {
         id,
-        isGuest: false,
         isPremium,
         name,
-        signOut: async () => null,
+        socialSignOut: async () => null,
       };
     },
   },

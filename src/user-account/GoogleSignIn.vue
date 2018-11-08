@@ -47,20 +47,16 @@ export default Vue.extend({
         return;
       }
 
-      const { id, isPremium, name } = userData;
+      const { userId: id, isPremium, name } = userData;
 
       this.$user = {
         id,
-        isGuest: false,
         isPremium,
         name,
-        signOut: async () => {
+        socialSignOut: async () => {
           gapi.auth2.getAuthInstance().signOut();
         },
       };
-
-      console.log('user.id', this.$user.id);
-      console.log('user.name', this.$user.name);
     },
   },
 });

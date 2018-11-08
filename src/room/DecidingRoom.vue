@@ -38,12 +38,12 @@ export default Vue.extend({
     },
   },
   mounted() {
-    console.log('user.id', this.$user.id);
-    console.log('user.name', this.$user.name);
+    console.log('user.id', this.$user!.id);
+    console.log('user.name', this.$user!.name);
   },
   computed: {
     isChallenger(): boolean {
-      return this.$user.id === this.room.challenger.id;
+      return this.$user!.id === this.room.challenger.id;
     },
     myDecision(): string | null {
       return this.isChallenger
