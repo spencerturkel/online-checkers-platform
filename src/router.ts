@@ -1,6 +1,7 @@
 import Vue from 'vue';
-import Router from 'vue-router';
+import Router, { NavigationGuard } from 'vue-router';
 
+import { httpClient } from './main';
 import AccountPage from './views/AccountPage.vue';
 import Board from './views/Board.vue';
 import Game from './views/Game.vue';
@@ -10,6 +11,14 @@ import Waiting from './views/Waiting.vue';
 import Win from './views/Win.vue';
 
 Vue.use(Router);
+
+const authGuard: NavigationGuard = async (to, from, next) => {
+  if ((await httpClient.head('/user')).status === 403) {
+    next('/');
+  } else {
+    next();
+  }
+};
 
 export default new Router({
   base: process.env.BASE_URL,
@@ -24,6 +33,7 @@ export default new Router({
       component: () =>
         import(/* webpackChunkName: "app.room" */ /* webpackPrefetch: true */
         './room/Room.vue'),
+      beforeEnter: authGuard,
     },
     {
       path: '/game',
@@ -54,6 +64,7 @@ export default new Router({
       path: '/account',
       name: 'account',
       component: AccountPage,
+      beforeEnter: authGuard,
     },
     {
       path: '*',

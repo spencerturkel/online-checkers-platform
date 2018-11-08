@@ -22,17 +22,24 @@ export default Vue.extend({
   components: {
     WaitingRoom,
   },
-  data: () => ({ state: null } as { state: RoomState | null }),
-  async beforeCreate() {
-    if ((await this.$http.head('/user')).isError) {
-      this.$router.replace('/');
-    }
-  },
+  data: () =>
+    ({ heartbeat: null, state: null } as {
+      heartbeat: NodeJS.Timer | null;
+      state: RoomState | null;
+    }),
   destroyed() {
-    console.warn('destroyed');
+    clearInterval(this.heartbeat!);
   },
   async created() {
-    while (this.$el && !this.state) {
+    this.heartbeat = setInterval(() => this.updateRoom(), 500);
+    await this.updateRoom();
+  },
+  methods: {
+    async leave() {
+      await this.$http.post('/room/leave');
+      this.$router.push('/');
+    },
+    async updateRoom() {
       let response = await this.$http.get('/room');
 
       if (response.status === 200) {
@@ -43,17 +50,13 @@ export default Vue.extend({
         if (response.isError) {
           // TODO: handle errors
           console.error(response);
+          clearInterval(this.heartbeat!);
         }
       } else {
         // TODO: handle error
         console.error(response);
+        clearInterval(this.heartbeat!);
       }
-    }
-  },
-  methods: {
-    async leave() {
-      await this.$http.post('/room/leave');
-      this.$router.push('/');
     },
   },
 });

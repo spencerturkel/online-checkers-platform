@@ -12,7 +12,7 @@ Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
 
-const httpClient = axios.create({
+export const httpClient = axios.create({
   baseURL:
     process.env.NODE_ENV === 'production'
       ? 'https://api-onlinecheckersplatform.us-east-2.elasticbeanstalk.com'
