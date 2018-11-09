@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <h1>Find a Room</h1>
-        <b-btn
-            variant="primary"
-            :disabled="finding"
-            @click="find"
-            v-text="finding ? 'Finding...' : 'No Rooms found. Try again?'"
-        ></b-btn>
-    </div>
+  <div>
+    <h1>Find a Room</h1>
+    <b-btn
+      variant="primary"
+      :disabled="finding"
+      @click="find"
+      v-text="finding ? 'Finding...' : 'No Rooms found. Try again?'"
+    ></b-btn>
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,10 +17,12 @@ export default Vue.extend({
   data: () => ({ finding: false }),
   async created() {
     this.finding = true;
+
     if ((await this.$http.get('/room')).isSuccess) {
       this.$router.push('/room');
+    } else {
+      await this.find();
     }
-    this.finding = false;
   },
   methods: {
     async find() {

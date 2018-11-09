@@ -10,13 +10,13 @@
     <b-btn-group>
       <b-btn
         variant="success"
-        :pressed="myDecision === 'challenger'"
-        @click="decide('challenger')"
+        :pressed="myDecision === (isChallenger ? 'challenger' : 'opponent')"
+        @click="decide(isChallenger ? 'challenger' : 'opponent')"
       >{{$user.name}}</b-btn>
       <b-btn
         variant="info"
-        :pressed="myDecision === 'opponent'"
-        @click="decide('opponent')"
+        :pressed="myDecision === (isChallenger ? 'opponent' : 'challenger')"
+        @click="decide(isChallenger ? 'opponent' : 'challenger')"
       >{{otherName}}</b-btn>
       <b-btn variant="primary" :pressed="myDecision === 'random'" @click="decide('random')">Random</b-btn>
     </b-btn-group>

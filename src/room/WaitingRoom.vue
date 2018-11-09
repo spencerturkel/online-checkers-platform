@@ -1,30 +1,31 @@
 <template>
   <div>
     <h1>Waiting Room</h1>
-    <template v-if="state.invitationToken">
-      <p>Your invitation was sent an email with an invitation link.</p>
-      <b-button variant="danger" @click="uninvite">Uninvite</b-button>
-      <p>Your opponent may also join using the following link:</p>
+    <div v-if="state.invitationToken">
+      <p v-if="emailed">Your invitation was sent an email with an invitation link.</p>
+      <p>
+        Your opponent may
+        join using the following link:
+      </p>
       <p>
         <a :href="invitationLink" v-text="invitationLink"></a>
       </p>
-    </template>
-    <template v-else>
-      <p v-if="state.public">
-        Your room is
-        <strong>public</strong>, and anyone may join.
-      </p>
-      <p v-else>
-        Your room is
-        <strong>private</strong>, and you must invite someone to join.
-      </p>
-      <b-button v-if="public_" variant="success" class="my-2" @click="privatize">Privatize</b-button>
-      <b-button v-else variant="success" class="my-2" @click="publish">Publish</b-button>
-      <b-form ref="form" inline novalidate :validated="validated" @submit="invite">
-        <b-form-input placeholder="example@gmail.com" type="email" required v-model="email"></b-form-input>
-        <b-button type="submit" variant="primary" class="mx-2">Invite</b-button>
-      </b-form>
-    </template>
+      <b-button @click="regenerate">{{emailed ? 'Uninvite' : 'Regenerate Link'}}</b-button>
+    </div>
+    <p v-if="state.public">
+      Your room is
+      <strong>public</strong>, and anyone may join.
+    </p>
+    <p v-else>
+      Your room is
+      <strong>private</strong>, and you must invite someone to join.
+    </p>
+    <b-button v-if="public_" variant="success" class="my-2" @click="privatize">Privatize</b-button>
+    <b-button v-else variant="success" class="my-2" @click="publish">Publish</b-button>
+    <b-form v-if="!emailed" ref="form" inline novalidate :validated="validated" @submit="invite">
+      <b-form-input placeholder="example@gmail.com" type="email" required v-model="email"></b-form-input>
+      <b-button type="submit" variant="primary" class="mx-2">Invite by email</b-button>
+    </b-form>
   </div>
 </template>
 
@@ -53,11 +54,11 @@ export default Vue.extend({
   },
   data: () => ({
     email: '',
+    emailed: false,
     validated: false,
   }),
   methods: {
     async invite() {
-      console.log('invite');
       if (!(this.$refs.form as HTMLFormElement).checkValidity()) {
         this.validated = true;
         console.log('invite invalid');
@@ -67,11 +68,16 @@ export default Vue.extend({
       const invitationResponse = await this.$http.post('/room/invite', {
         email: this.email,
       });
-      console.log('invite posted');
+
       if (invitationResponse.isError) {
         console.error(invitationResponse);
       }
-      this.update();
+
+      this.emailed = true;
+    },
+    async regenerate() {
+      this.emailed = false;
+      await this.$http.post('/room/invite');
     },
     async publish() {
       await this.$http.post('/room/publish');
@@ -80,9 +86,6 @@ export default Vue.extend({
     async privatize() {
       await this.$http.post('/room/privatize');
       this.update();
-    },
-    async uninvite() {
-      await this.$http.delete('/room/invite');
     },
   },
 });

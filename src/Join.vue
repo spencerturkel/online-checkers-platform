@@ -48,7 +48,7 @@ export default Vue.extend({
       }
 
       const { id, name } = response.data;
-      Object.assign(this.$user, { id, name });
+      this.$user = { id, name };
 
       await this.join();
     },
