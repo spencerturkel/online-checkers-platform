@@ -37,6 +37,9 @@ export interface DecidingState {
   previousWinnerId?: string;
 }
 
+export type Space = 'D' | 'DK' | 'L' | 'LK' | null;
+export type Board = Space[][];
+
 /**
  * The Room state where the users are playing a game.
  */
@@ -44,7 +47,7 @@ export interface PlayingState {
   name: 'playing';
   game: {
     currentColor: 'D' | 'L';
-    board: Array<Array<'D' | 'DK' | 'L' | 'LK' | null>>;
+    board: Board;
     darkId: string;
     lightId: string;
   };

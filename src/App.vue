@@ -2,7 +2,7 @@
   <b-container id="app">
     <div id="nav"></div>
     <router-view/>
-    <div v-if="!$root.$data.user.isPremium" class="ad">
+    <div v-if="!$user || !$user.isPremium" class="ad">
       <h1 id="sampleAd">This is an ad. Upgrade now</h1>
     </div>
   </b-container>
