@@ -1,6 +1,14 @@
 <template>
   <div>
     <h1>Against {{otherName}}</h1>
+    <dl>
+      <dt>Dark Player</dt>
+      <dd v-text="darkPlayer"></dd>
+      <dt>Light Player</dt>
+      <dd v-text="lightPlayer"></dd>
+      <dt>Current Player</dt>
+      <dd v-text="currentPlayer"></dd>
+    </dl>
     <table>
       <tbody>
         <tr v-for="(row, rowIndex) in board" :key="rowIndex">
@@ -44,6 +52,21 @@ export default Vue.extend({
   computed: {
     board(): Board {
       return this.room.state.game.board;
+    },
+    currentPlayer(): string {
+      return this.room.state.game.currentColor === 'D'
+        ? this.darkPlayer
+        : this.lightPlayer;
+    },
+    darkPlayer(): string {
+      return this.room.challenger.id === this.room.state.game.darkId
+        ? this.room.challenger.name
+        : this.room.state.opponent.name;
+    },
+    lightPlayer(): string {
+      return this.room.challenger.id === this.room.state.game.lightId
+        ? this.room.challenger.name
+        : this.room.state.opponent.name;
     },
     isChallenger(): boolean {
       return this.$user!.id === this.room.challenger.id;
@@ -109,12 +132,12 @@ export default Vue.extend({
 
 <style scoped>
 /*Makes the image take up the whole screen*/
-html,
+/* html,
 body {
   height: 100%;
   width: 100%;
   margin: 0px;
-}
+} */
 
 .row {
   position: absolute;
@@ -167,7 +190,8 @@ table {
   height: 100%;
   width: 62.74%;
 
-  top: 0;
+  top: 50%;
+  bottom: 50%;
   left: 18.62%;
 }
 
