@@ -14,7 +14,7 @@
           v-if="space"
           draggable="true"
           @dragstart="dragstart($event, rowIndex, columnIndex)"
-          :class="space">
+          :class="[space, 'piece']">
             &nbsp;
         </div>
 
@@ -30,11 +30,14 @@
 
 <script lang="ts">
 type Board = Array<Array<string | null>> | null;
+
 import Vue from 'vue';
+
 export default Vue.extend({
   data: () => ({
     board: null as Board,
     dragging: null as null | { rowIndex: number; columnIndex: number },
+    movingPiece: null as null | string,
   }),
   async mounted(): Promise<void> {
     this.board = [
@@ -53,20 +56,34 @@ export default Vue.extend({
       return;
     },
     dragstart(event: DragEvent, rowIndex: number, columnIndex: number): void {
-      console.log(event);
+      // Picks up the first location
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.setData('text/plain', ''); // Required for Firefox
       this.dragging = { rowIndex, columnIndex };
+      this.movingPiece = this.board![rowIndex][columnIndex];
+      console.log(this.movingPiece);
+      this.board![rowIndex][columnIndex] = null;
+      console.log(this.board![rowIndex][columnIndex]);
+      this.setCell(null, rowIndex, columnIndex);
     },
     drop(rowIndex: number, columnIndex: number): void {
       console.log('Dropped at (%d, %d)', rowIndex, columnIndex);
+      this.board![rowIndex][columnIndex] = this.movingPiece;
+      console.log(this.board!);
+      this.setCell(this.movingPiece, rowIndex, columnIndex);
+      this.movingPiece = null;
     },
     getClassFor(rowIndex: number, columnIndex: number): string {
       if (rowIndex % 2 === 0) {
-        return columnIndex % 2 === 0 ? 'dark' : 'light';
-      } else {
         return columnIndex % 2 === 0 ? 'light' : 'dark';
+      } else {
+        return columnIndex % 2 === 0 ? 'dark' : 'light';
       }
+    },
+    setCell(state: null | string, rowIndex: number, columnIndex: number) {
+      const row = this.board![rowIndex].slice(0);
+      row[columnIndex] = state;
+      this.$set(this.board!, rowIndex, row);
     },
   },
 });
@@ -89,38 +106,32 @@ body {
 }
 
 .dark {
-  background-color: red;
+  background-color: black;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .light {
-  background-color: gray;
+  background-color: white;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .L {
   background-color: white;
-
-  width: 75%;
-  height: 75%;
-
-  vertical-align: middle;
-
-  margin-left: auto;
-  margin-right: auto;
-
   border-radius: 50%;
 }
 
 .D {
-  background-color: black;
-
-  width: 75%;
-  height: 75%;
-
-  vertical-align: middle;
-
-  margin-left: auto;
-  margin-right: auto;
-
+  background-color: gray;
   border-radius: 50%;
 }
 
@@ -141,7 +152,15 @@ table {
 
   top: 0;
   left: 18.62%;
+}
 
-  background-color: red;
+.piece {
+  width: 75%;
+  height: 75%;
+
+  vertical-align: middle;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

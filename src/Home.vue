@@ -24,9 +24,6 @@
         </b-col>
       </b-row>
     </b-container>
-    <div v-if="!$user || !$user.isPremium" class="ad">
-      <h1 id="sampleAd">This is an ad. Upgrade now.</h1>
-    </div>
     <img id="StartScreen" src="./assets/CheckersMainMenuGraphic.png" alt="Start Screen">
   </div>
 </template>

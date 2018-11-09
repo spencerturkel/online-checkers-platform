@@ -2,6 +2,9 @@
   <b-container id="app">
     <div id="nav"></div>
     <router-view/>
+    <div v-if="!$root.$data.user.isPremium" class="ad">
+      <h1 id="sampleAd">This is an ad. Upgrade now</h1>
+    </div>
   </b-container>
 </template>
 
@@ -42,5 +45,29 @@ export default Vue.extend({
   top: 20%;
   text-align: center;
   font-size: 1.6em; /*Increases the font size of the start button by x1.6*/
+}
+
+.ad {
+  position: absolute;
+
+  height: 5%;
+  width: 100%;
+
+  top: 95%;
+  left: 0;
+
+  background-color: blue;
+}
+
+#sampleAd {
+  color: orange;
+  vertical-align: middle;
+  animation: blinker 0.5s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
