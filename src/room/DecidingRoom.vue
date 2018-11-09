@@ -2,6 +2,7 @@
   <div>
     <h1>Against {{otherName}}</h1>
     <h2>Vote who will go first</h2>
+    <h3 v-if="winner">{{winner}} won the last game!</h3>
     <p v-if="otherDecisionDisplay">
       <span class="name">{{otherName}}</span>&nbsp;votes that
       <span class="choice">{{otherDecisionDisplay}}</span>&nbsp;will go first.
@@ -37,10 +38,6 @@ export default Vue.extend({
       type: Function,
     },
   },
-  mounted() {
-    console.log('user.id', this.$user!.id);
-    console.log('user.name', this.$user!.name);
-  },
   computed: {
     isChallenger(): boolean {
       return this.$user!.id === this.room.challenger.id;
@@ -66,6 +63,13 @@ export default Vue.extend({
       return this.isChallenger
         ? this.room.state.opponent.name
         : this.room.challenger.name;
+    },
+    winner(): string | null {
+      return this.room.state.previousWinnerId === this.room.challenger.id
+        ? this.room.challenger.name
+        : this.room.state.previousWinnerId === this.room.state.opponent.id
+          ? this.room.state.opponent.name
+          : null;
     },
   },
   methods: {

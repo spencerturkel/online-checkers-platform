@@ -5,7 +5,7 @@
     <template v-if="room">
       <waiting-room v-if="room.state.name === 'waiting'" :state="room.state" :update="updateRoom"></waiting-room>
       <deciding-room v-else-if="room.state.name === 'deciding'" :room="room" :update="updateRoom"></deciding-room>
-      <p v-else>Playing</p>
+      <game-room v-else :room="room" :update="updateRoom"></game-room>
     </template>
   </b-container>
 </template>
@@ -14,6 +14,7 @@
 import Vue from 'vue';
 
 import DecidingRoom from './DecidingRoom.vue';
+import GameRoom from './GameRoom.vue';
 import { Room } from './room-state';
 import WaitingRoom from './WaitingRoom.vue';
 
@@ -21,6 +22,7 @@ export default Vue.extend({
   name: 'Room',
   components: {
     DecidingRoom,
+    GameRoom,
     WaitingRoom,
   },
   data: () =>
