@@ -12,7 +12,7 @@
         variant="success"
         :pressed="myDecision === 'challenger'"
         @click="decide('challenger')"
-      >You</b-btn>
+      >{{$user.name}}</b-btn>
       <b-btn
         variant="info"
         :pressed="myDecision === 'opponent'"
@@ -52,9 +52,13 @@ export default Vue.extend({
         ? this.room.state.opponentDecision
         : this.room.state.challengerDecision;
       return decision === 'challenger'
-        ? 'you'
+        ? this.isChallenger
+          ? 'you'
+          : 'they'
         : decision === 'opponent'
-          ? 'they'
+          ? this.isChallenger
+            ? 'they'
+            : 'you'
           : decision === 'random'
             ? 'a random player'
             : null;
