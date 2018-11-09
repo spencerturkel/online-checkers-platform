@@ -14,7 +14,7 @@
           v-if="space"
           draggable="true"
           @dragstart="dragstart($event, rowIndex, columnIndex)"
-          :class="space">
+          :class="[space, 'piece']">
             &nbsp;
         </div>
 
@@ -37,6 +37,7 @@ export default Vue.extend({
   data: () => ({
     board: null as Board,
     dragging: null as null | { rowIndex: number; columnIndex: number },
+    movingPiece: null as null | string,
   }),
   async mounted(): Promise<void> {
     this.board = [
@@ -56,13 +57,21 @@ export default Vue.extend({
     },
     dragstart(event: DragEvent, rowIndex: number, columnIndex: number): void {
       // Picks up the first location
-      console.log(event);
       event.dataTransfer.dropEffect = 'move';
       event.dataTransfer.setData('text/plain', ''); // Required for Firefox
       this.dragging = { rowIndex, columnIndex };
+      this.movingPiece = this.board![rowIndex][columnIndex];
+      console.log(this.movingPiece);
+      this.board![rowIndex][columnIndex] = null;
+      console.log(this.board![rowIndex][columnIndex]);
+      this.setCell(null, rowIndex, columnIndex);
     },
     drop(rowIndex: number, columnIndex: number): void {
       console.log('Dropped at (%d, %d)', rowIndex, columnIndex);
+      this.board![rowIndex][columnIndex] = this.movingPiece;
+      console.log(this.board!);
+      this.setCell(this.movingPiece, rowIndex, columnIndex);
+      this.movingPiece = null;
     },
     getClassFor(rowIndex: number, columnIndex: number): string {
       if (rowIndex % 2 === 0) {
@@ -70,6 +79,11 @@ export default Vue.extend({
       } else {
         return columnIndex % 2 === 0 ? 'dark' : 'light';
       }
+    },
+    setCell(state: null | string, rowIndex: number, columnIndex: number) {
+      const row = this.board![rowIndex].slice(0);
+      row[columnIndex] = state;
+      this.$set(this.board!, rowIndex, row);
     },
   },
 });
@@ -113,29 +127,11 @@ body {
 
 .L {
   background-color: white;
-
-  width: 75%;
-  height: 75%;
-
-  vertical-align: middle;
-
-  margin-left: auto;
-  margin-right: auto;
-
   border-radius: 50%;
 }
 
 .D {
   background-color: gray;
-
-  width: 75%;
-  height: 75%;
-
-  vertical-align: middle;
-
-  margin-left: auto;
-  margin-right: auto;
-
   border-radius: 50%;
 }
 
@@ -156,5 +152,15 @@ table {
 
   top: 0;
   left: 18.62%;
+}
+
+.piece {
+  width: 75%;
+  height: 75%;
+
+  vertical-align: middle;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
