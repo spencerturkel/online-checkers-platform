@@ -106,3 +106,78 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+/*Makes the image take up the whole screen*/
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+}
+
+.row {
+  position: absolute;
+  width: 100%;
+  height: 12.5%;
+}
+
+.dark {
+  background-color: black;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.light {
+  background-color: white;
+
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+.L {
+  background-color: white;
+  border-radius: 50%;
+}
+
+.D {
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.DK {
+  background: url('../assets/BCrown.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+.LK {
+  background: url('../assets/WCrown.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+table {
+  position: absolute;
+  height: 100%;
+  width: 62.74%;
+
+  top: 0;
+  left: 18.62%;
+}
+
+.piece {
+  width: 75%;
+  height: 75%;
+
+  vertical-align: middle;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
