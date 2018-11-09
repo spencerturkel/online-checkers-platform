@@ -15,6 +15,11 @@
       </b-row>
       <b-row>
         <b-col>
+          <b-button to="/find" size="lg" variant="primary">Find a Room</b-button>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
           <b-button to="/account" size="lg" variant="primary">Account</b-button>
         </b-col>
       </b-row>

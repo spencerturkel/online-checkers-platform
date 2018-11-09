@@ -22,10 +22,19 @@ export default new Router({
       component: Home,
     },
     {
+      path: '/find',
+      component: UserGuard,
+      props: {
+        component: () =>
+          import(/* webpackChunkName: "app.find" */ './Find.vue'),
+      },
+    },
+    {
       path: '/room',
       component: UserGuard,
       props: {
-        component: Room,
+        component: () =>
+          import(/* webpackChunkName: "app.room" */ './room/Room.vue'),
       },
     },
     {
