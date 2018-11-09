@@ -9,7 +9,8 @@
           :class="getClassFor(rowIndex, columnIndex)"
           @dragenter.prevent="void 0"
           @dragover.prevent="void 0"
-          @drop="drop(rowIndex, columnIndex)">
+          @drop="drop(rowIndex, columnIndex)"
+          draggable="false">
           <div
           v-if="space"
           draggable="true"
@@ -23,8 +24,6 @@
         </div>
         </td>
     </tr>
-
-    
   </table>
 </template>
 
@@ -41,13 +40,13 @@ export default Vue.extend({
   }),
   async mounted(): Promise<void> {
     this.board = [
-      [null, 'D', null, 'D', null, 'D', null, 'D'],
+      [null, 'D', null, 'DK', null, 'D', null, 'D'],
       ['D', null, 'D', null, 'D', null, 'D', null],
       [null, 'D', null, 'D', null, 'D', null, 'D'],
       [null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null],
       ['L', null, 'L', null, 'L', null, 'L', null],
-      [null, 'L', null, 'L', null, 'L', null, 'L'],
+      [null, 'L', null, 'LK', null, 'L', null, 'L'],
       ['L', null, 'L', null, 'L', null, 'L', null],
     ];
   },
@@ -61,15 +60,12 @@ export default Vue.extend({
       event.dataTransfer.setData('text/plain', ''); // Required for Firefox
       this.dragging = { rowIndex, columnIndex };
       this.movingPiece = this.board![rowIndex][columnIndex];
-      console.log(this.movingPiece);
       this.board![rowIndex][columnIndex] = null;
-      console.log(this.board![rowIndex][columnIndex]);
       this.setCell(null, rowIndex, columnIndex);
     },
     drop(rowIndex: number, columnIndex: number): void {
       console.log('Dropped at (%d, %d)', rowIndex, columnIndex);
       this.board![rowIndex][columnIndex] = this.movingPiece;
-      console.log(this.board!);
       this.setCell(this.movingPiece, rowIndex, columnIndex);
       this.movingPiece = null;
     },
@@ -107,22 +103,10 @@ body {
 
 .dark {
   background-color: black;
-
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .light {
   background-color: white;
-
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
 }
 
 .L {
@@ -162,5 +146,12 @@ table {
 
   margin-left: auto;
   margin-right: auto;
+}
+
+td {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
 }
 </style>
