@@ -10,7 +10,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button to="/game" size="lg" variant="primary">Create A Game Room</b-button>
+          <b-button to="/room" size="lg" variant="primary">Create A Game Room</b-button>
         </b-col>
       </b-row>
       <b-row>
