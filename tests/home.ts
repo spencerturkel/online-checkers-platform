@@ -9,5 +9,5 @@ if (!host) {
 fixture('Home').page(host + '/');
 
 test('Home page renders', async t => {
-  await t.expect(Selector('html').innerText).contains('Online');
+  await t.expect(Selector('html').innerText).contains('Checkers');
 });
