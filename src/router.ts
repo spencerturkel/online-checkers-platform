@@ -2,7 +2,6 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Home from './Home.vue';
-import Account from './user-account/Account.vue';
 import UserGuard from './UserGuard.vue';
 
 Vue.use(Router);
@@ -40,7 +39,8 @@ export default new Router({
       name: 'account',
       component: UserGuard,
       props: {
-        component: Account,
+        component: () =>
+          import(/* webpackChunkName: "app.account" */ './user-account/Account.vue'),
       },
     },
     {
