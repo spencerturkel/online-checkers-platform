@@ -16,6 +16,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
+/**
+ * This is the view that is rendered when an invitation link is clicked.
+ * An unknown user will be prompted to provide a display name,
+ * and then they will be logged in as a guest.
+ * When the user is authenticated, they will join the expected game.
+ */
 export default Vue.extend({
   name: 'Join',
   data: () => ({ auth: false, guestName: '' }),

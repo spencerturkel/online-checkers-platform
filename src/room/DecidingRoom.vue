@@ -28,6 +28,9 @@
 import Vue from 'vue';
 import { DecidingState, Decision, Room } from './room-state';
 
+/**
+ * Facilitates the decision of who will go first.
+ */
 export default Vue.extend({
   name: 'deciding-room',
   props: {

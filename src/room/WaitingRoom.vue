@@ -34,6 +34,10 @@ import Vue from 'vue';
 
 import { WaitingState } from './room-state';
 
+/**
+ * Shows the invitation link, allows the user to email the invitation,
+ * and allows the user to publish/privatize the room.
+ */
 export default Vue.extend({
   name: 'waiting-room',
   props: {

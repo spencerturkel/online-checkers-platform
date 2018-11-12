@@ -18,6 +18,9 @@ import GameRoom from './GameRoom.vue';
 import { Room } from './room-state';
 import WaitingRoom from './WaitingRoom.vue';
 
+/**
+ * Displays and continually updates rooms.
+ */
 export default Vue.extend({
   name: 'Room',
   components: {

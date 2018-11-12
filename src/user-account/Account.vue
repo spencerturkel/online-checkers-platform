@@ -38,6 +38,9 @@ import Vue from 'vue';
 import { User } from '../user';
 import Upgrade from './Upgrade.vue';
 
+/**
+ * Displays the user's premium status and their statistics.
+ */
 export default Vue.extend({
   name: 'Account',
   components: {

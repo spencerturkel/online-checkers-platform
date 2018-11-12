@@ -7,6 +7,9 @@ import Vue from 'vue';
 
 let nextUid = 0;
 
+/**
+ * Google Sign-In using the gapi.signin2 API.
+ */
 export default Vue.extend({
   name: 'GoogleSignIn',
   data: () => ({ uid: nextUid++ }),

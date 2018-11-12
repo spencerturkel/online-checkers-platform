@@ -9,8 +9,5 @@ if (!host) {
 fixture('Home').page(host + '/');
 
 test('Home page renders', async t => {
-  await t
-    .click(Selector('a[href$="/about"]'))
-    .expect(Selector('html').innerText)
-    .contains('About');
+  await t.expect(Selector('html').innerText).contains('Online');
 });

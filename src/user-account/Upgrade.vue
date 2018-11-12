@@ -11,6 +11,9 @@
 <script lang="ts">
 import Vue from 'vue';
 
+/**
+ * A button that allows users to upgrade their accounts to remove ads.
+ */
 export default Vue.extend({
   data: () => ({ handler: null! as StripeCheckoutHandler, showError: false }),
   mounted() {

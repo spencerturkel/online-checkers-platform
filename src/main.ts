@@ -17,11 +17,11 @@ export const httpClient = axios.create({
     process.env.NODE_ENV === 'production'
       ? 'https://api-onlinecheckersplatform.us-east-2.elasticbeanstalk.com'
       : 'http://localhost:5000',
-  withCredentials: true,
+  withCredentials: true, // send cookies across domains
   headers: {
-    'X-Requested-With': 'XMLHttpRequest',
+    'X-Requested-With': 'XMLHttpRequest', // protects CSRF
   },
-  validateStatus: () => true,
+  validateStatus: () => true, // handle HTTP errors manually instead of with exceptions
 });
 
 declare module 'axios' {
@@ -52,6 +52,12 @@ declare module 'vue/types/vue' {
 Vue.prototype.$http = httpClient;
 Vue.prototype.$production = process.env.NODE_ENV === 'production';
 
+/**
+ * Defining user as a property on the Vue prototype,
+ * while keeping the actual data on the root Vue instance.
+ * This allows changes to be reflected in the view with Vue's normal reactivity
+ * system, while also providing a convenient syntax for accessing the user.
+ */
 Object.defineProperty(Vue.prototype, '$user', {
   get(this: Vue) {
     return this.$root.$data.user;

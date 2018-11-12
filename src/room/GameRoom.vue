@@ -39,6 +39,9 @@ import Vue from 'vue';
 
 import { Board, PlayingState, Room, Space } from './room-state';
 
+/**
+ * Displays and facilitates the actual checkers game.
+ */
 export default Vue.extend({
   name: 'GameRoom',
   props: {

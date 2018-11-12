@@ -10,12 +10,12 @@
       </b-row>
       <b-row>
         <b-col>
-          <b-button to="/room" size="lg" variant="primary">Create a Room</b-button>
+          <b-button to="/game" size="lg" variant="primary">Create A Game Room</b-button>
         </b-col>
       </b-row>
       <b-row>
         <b-col>
-          <b-button to="/find" size="lg" variant="primary">Find a Room</b-button>
+          <b-button to="/find" size="lg" variant="primary">Find A Game Room</b-button>
         </b-col>
       </b-row>
       <b-row>
@@ -34,6 +34,9 @@ import Vue from 'vue';
 import SignIn from '@/user-account/SignIn.vue';
 import Upgrade from '@/user-account/Upgrade.vue';
 
+/**
+ * The default view, facilitating access to the rest of the app.
+ */
 export default Vue.extend({
   name: 'home',
   components: {

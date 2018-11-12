@@ -7,6 +7,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
+/**
+ * Developer sign-in using an arbitrary user ID.
+ * Will not work in production.
+ */
 export default Vue.extend({
   data: () => ({ id: '', isPremium: false, validated: false }),
   methods: {

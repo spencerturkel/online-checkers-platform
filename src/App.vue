@@ -1,6 +1,5 @@
 <template>
-  <b-container id="app">
-    <div id="nav"></div>
+  <b-container>
     <router-view/>
     <div v-if="!$user || !$user.isPremium" class="ad">
       <h1 id="sampleAd">This is an ad. Upgrade now</h1>
@@ -17,13 +16,14 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-#app {
+b-container {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
+
 #nav {
   padding: 30px;
 }

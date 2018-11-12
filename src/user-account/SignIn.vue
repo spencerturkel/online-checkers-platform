@@ -31,13 +31,14 @@ import Vue from 'vue';
 import { AuthenticatedUser } from '../user';
 import DevSignIn from './DevSignIn.vue';
 import GoogleSignIn from './GoogleSignIn.vue';
-import Upgrade from './Upgrade.vue';
 
+/**
+ * Component listing and handling all sign-in methods.
+ */
 export default Vue.extend({
   components: {
     DevSignIn,
     GoogleSignIn,
-    Upgrade,
   },
   methods: {
     async onSignedOut(): Promise<void> {

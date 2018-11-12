@@ -12,6 +12,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
+
+/**
+ * Finds a public room, or returns the user to their existing room.
+ */
 export default Vue.extend({
   name: 'Find',
   data: () => ({ finding: false }),
