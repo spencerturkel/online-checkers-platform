@@ -60,7 +60,7 @@ export default Vue.extend({
 
     if (status === 200) {
       this.wins = data.wins;
-      this.losses = data.wins;
+      this.losses = data.losses;
     } else if (status === 403) {
       this.$router.replace('/');
     } else {
