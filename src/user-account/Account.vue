@@ -2,28 +2,28 @@
   <div>
     <img id="StartScreen" src="../assets/CheckersMainMenuGraphic.png" alt="Start Screen">
     <div id="stats">
-      <h1>Account
+      <h1 class="center">Account
         <b-badge v-if="user.isPremium" pill variant="success">Premium</b-badge>
       </h1>
-      <h1>{{user.name}}</h1>
+      <h1 class="center">{{user.name}}</h1>
       <b-container>
         <b-row>
-          <b-col cols="5" id="wins">Wins</b-col>
-          <b-col cols="2" id="losses">Losses</b-col>
-          <b-col cols="2" id="games">Games</b-col>
+          <b-col cols="5" class="wins">Wins</b-col>
+          <b-col cols="2" class="center">Losses</b-col>
+          <b-col cols="2" class="center">Games</b-col>
         </b-row>
         <b-row>
-          <b-col cols="5" id="wins">{{wins}}</b-col>
-          <b-col cols="2" id="losses">{{losses}}</b-col>
-          <b-col cols="2" id="games">{{games}}</b-col>
+          <b-col cols="5" class="wins">{{wins}}</b-col>
+          <b-col cols="2" class="center">{{losses}}</b-col>
+          <b-col cols="2" class="center">{{games}}</b-col>
         </b-row>
         <b-row v-if="!user.isGuest && !user.isPremium">
-          <b-col>
+          <b-col class="center">
             <upgrade></upgrade>
           </b-col>
         </b-row>
         <b-row>
-          <b-col>
+          <b-col class="center">
             <b-button variant="danger" to="/">Main Menu</b-button>
           </b-col>
         </b-row>
@@ -105,15 +105,11 @@ html {
   border: 3px solid black;
 }
 
-#wins {
+.center {
+  text-align: center;
+}
+
+.wins {
   text-align: right;
-}
-
-#losses {
-  text-align: center;
-}
-
-#games {
-  text-align: center;
 }
 </style>

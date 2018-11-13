@@ -1,15 +1,17 @@
 <template>
   <div>
-    <h1>Against {{otherName}}</h1>
-    <dl>
-      <dt>Dark Player</dt>
-      <dd v-text="darkPlayer"></dd>
-      <dt>Light Player</dt>
-      <dd v-text="lightPlayer"></dd>
-      <dt>Current Player</dt>
-      <dd v-text="currentPlayer"></dd>
-    </dl>
-    <table>
+    <div class="info">
+      <h2>Against {{otherName}}</h2>
+      <dl>
+        <dt>Dark Player</dt>
+        <dd v-text="darkPlayer"></dd>
+        <dt>Light Player</dt>
+        <dd v-text="lightPlayer"></dd>
+        <dt>Current Player</dt>
+        <dd v-text="currentPlayer"></dd>
+      </dl>
+    </div>
+    <table class="center">
       <tbody>
         <tr v-for="(row, rowIndex) in board" :key="rowIndex">
           <td
@@ -26,7 +28,9 @@
               @dragstart="dragstart($event, rowIndex, columnIndex)"
               :class="[space, 'piece']"
             >&nbsp;</div>
-            <div v-else>&nbsp;</div>
+            <div 
+            v-else
+            :class="['piece', getClassFor(rowIndex, columnIndex)]">&nbsp;</div>
           </td>
         </tr>
       </tbody>
@@ -170,12 +174,12 @@ body {
 
 .L {
   background-color: white;
-  border-radius: 50%;
+  border-radius: 100% 100%;
 }
 
 .D {
   background-color: gray;
-  border-radius: 50%;
+  border-radius: 100% 100%;
 }
 
 .DK {
@@ -190,21 +194,30 @@ body {
 
 table {
   position: absolute;
-  height: 100%;
-  width: 62.74%;
+  height: auto;
+  width: 46%;
 
-  top: 50%;
+  top: 0;
   bottom: 50%;
   left: 18.62%;
 }
 
 .piece {
-  width: 75%;
-  height: 75%;
+  width: 60px;
+  height: 60px;
 
   vertical-align: middle;
 
   margin-left: auto;
   margin-right: auto;
+}
+
+.info {
+  position: absolute;
+  height: 100%;
+  width: 18%;
+
+  left: 0;
+  top: 0;
 }
 </style>

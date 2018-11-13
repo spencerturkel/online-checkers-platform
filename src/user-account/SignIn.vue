@@ -1,8 +1,8 @@
 <template>
   <div>
     <template v-if="$user">
-      <h1>Welcome, {{$user.name}}!</h1>
-      <b-container>
+      <h1 class="center">Welcome, {{$user.name}}!</h1>
+      <b-container class="center">
         <b-row>
           <b-col>
             <b-button @click="onSignedOut">Sign Out</b-button>
@@ -62,9 +62,7 @@ export default Vue.extend({
 </script>
 
 <style scoped lang="css">
-div.center {
-  position: absolute;
-  width: 100%;
+.center {
   text-align: center;
 }
 </style>

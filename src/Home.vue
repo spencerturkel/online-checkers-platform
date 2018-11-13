@@ -2,22 +2,25 @@
   <div class="home">
     <h1>Welcome to Checkers</h1>
     <sign-in></sign-in>
-    <b-container v-if="$user">
+    <b-container v-if="$user" class="center">
       <b-row v-if="!$user.isPremium">
         <b-col>
           <upgrade></upgrade>
         </b-col>
       </b-row>
+
       <b-row>
         <b-col>
           <b-button to="/room" size="lg" variant="primary">Create A Game Room</b-button>
         </b-col>
       </b-row>
+
       <b-row>
         <b-col>
           <b-button to="/find" size="lg" variant="primary">Find A Game Room</b-button>
         </b-col>
       </b-row>
+      
       <b-row>
         <b-col>
           <b-button to="/account" size="lg" variant="primary">Account</b-button>
@@ -74,29 +77,5 @@ h1 {
 
   background: no-repeat center;
   background-size: cover;
-}
-
-.ad {
-  position: absolute;
-
-  height: 10%;
-  width: 100%;
-
-  top: 90%;
-  left: 0;
-
-  background-color: blue;
-}
-
-#sampleAd {
-  color: orange;
-  vertical-align: middle;
-  animation: blinker 0.5s linear infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
 }
 </style>

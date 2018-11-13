@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Waiting Room</h1>
+    <h1 class="center">Waiting Room</h1>
     <div v-if="state.invitationToken">
       <p v-if="emailed">Your invitation was sent an email with an invitation link.</p>
       <p>

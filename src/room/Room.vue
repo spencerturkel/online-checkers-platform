@@ -1,7 +1,9 @@
 <template>
   <b-container>
-    <h1>Room</h1>
-    <b-btn variant="danger" @click="leave">Leave</b-btn>
+    <h1 class="center">Room</h1>
+    <div class="leave">
+      <b-btn variant="danger" @click="leave">Leave</b-btn>
+    </div>
     <template v-if="room">
       <waiting-room v-if="room.state.name === 'waiting'" :state="room.state" :update="updateRoom"></waiting-room>
       <deciding-room v-else-if="room.state.name === 'deciding'" :room="room" :update="updateRoom"></deciding-room>
@@ -65,3 +67,11 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.leave {
+  position: absolute;
+  top: 85%;
+  left: 0;
+}
+</style>

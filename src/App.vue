@@ -15,6 +15,12 @@ export default Vue.extend({
 });
 </script>
 
+<style>
+.center {
+  text-align: center;
+}
+</style>
+
 <style scoped>
 b-container {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
