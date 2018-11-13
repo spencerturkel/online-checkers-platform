@@ -48,12 +48,12 @@ b-container {
 }
 
 .ad {
-  position: absolute;
+  position: fixed;
 
-  height: 5%;
+  height: 6.5%;
   width: 100%;
 
-  top: 95%;
+  top: 92.5%;
   left: 0;
 
   background-color: blue;
@@ -62,6 +62,7 @@ b-container {
 #sampleAd {
   color: orange;
   vertical-align: middle;
+  text-align: center;
   animation: blinker 0.5s linear infinite;
 }
 

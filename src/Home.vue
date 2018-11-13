@@ -52,6 +52,10 @@ html {
   height: 100%;
 }
 
+h1 {
+  text-align: center;
+}
+
 .row {
   margin-top: 1rem;
 }
