@@ -28,9 +28,7 @@
               @dragstart="dragstart($event, rowIndex, columnIndex)"
               :class="[space, 'piece']"
             >&nbsp;</div>
-            <div 
-            v-else
-            :class="['piece', getClassFor(rowIndex, columnIndex)]">&nbsp;</div>
+            <div v-else :class="['piece', getClassFor(rowIndex, columnIndex)]">&nbsp;</div>
           </td>
         </tr>
       </tbody>
@@ -214,7 +212,6 @@ table {
 
 .info {
   position: absolute;
-  height: 100%;
   width: 18%;
 
   left: 0;
